@@ -218,6 +218,10 @@
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-8px) rotate(-1deg); }
   }
+  @keyframes hotspotGlow {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(226,199,149,0.7), 0 0 12px rgba(226,199,149,0.8); }
+    50% { transform: scale(1.18); box-shadow: 0 0 0 9px rgba(226,199,149,0), 0 0 20px rgba(226,199,149,1); }
+  }
   @keyframes clayShimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
   @keyframes clayDrift { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(40px,-30px) scale(1.06); } 66% { transform: translate(-30px,25px) scale(.96); } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; } }
@@ -238,23 +242,23 @@
 <div style="position:relative;z-index:2">
 
   <!-- NAV -->
-  <div style="position:sticky;top:0;z-index:60;padding:0 clamp(14px,3vw,40px) clamp(10px,1.5vw,16px)">
-    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.32) 100%);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border-radius:0 0 36px 36px;padding:12px clamp(16px,2vw,26px);min-height:70px;border:1px solid rgba(255,255,255,.65);border-top:0;box-shadow:0 16px 38px rgba(160,140,110,.18),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 2px rgba(169,127,60,.06)">
-      <a href="#top" style="display:flex;align-items:center;gap:14px;flex-shrink:0">
-        <img src="assets/heaven-logo-teal.png" alt="Heaven Furniture Mart" style="height:clamp(54px,5.8vw,68px);width:auto;display:block;border-radius:18px;box-shadow:10px 10px 22px rgba(31,58,56,.30),-6px -6px 14px rgba(255,255,255,.9);transition:transform .2s" style-hover="transform:scale(1.04)" />
+  <div style="position:sticky;top:0;z-index:60;padding:0 clamp(10px,2vw,32px) clamp(8px,1.2vw,14px)">
+    <div style="max-width:1300px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:clamp(10px,1.5vw,18px);background:linear-gradient(180deg,rgba(255,255,255,.58) 0%,rgba(255,255,255,.32) 100%);backdrop-filter:blur(28px) saturate(1.8);-webkit-backdrop-filter:blur(28px) saturate(1.8);border-radius:0 0 36px 36px;padding:10px clamp(14px,1.6vw,22px);min-height:68px;border:1px solid rgba(255,255,255,.65);border-top:0;box-shadow:0 16px 38px rgba(160,140,110,.18),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 2px rgba(169,127,60,.06)">
+      <a href="#top" style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+        <img src="assets/heaven-logo-teal.png" alt="Heaven Furniture Mart" style="height:clamp(48px,5vw,62px);width:auto;display:block;border-radius:16px;box-shadow:8px 8px 18px rgba(31,58,56,.28),-5px -5px 12px rgba(255,255,255,.9);transition:transform .2s" style-hover="transform:scale(1.04)" />
       </a>
 
       <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;align-items:center;gap:8px;flex:1 1 auto;min-width:0;justify-content:center;flex-wrap:nowrap">
+        <div style="display:flex;align-items:center;gap:clamp(4px,0.5vw,7px);flex:1 1 auto;min-width:0;justify-content:center;flex-wrap:nowrap">
           <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="5">
-            <a href="{{ link.href }}" style="{{ link.style }}" style-hover="transform:translateY(-3px);color:#17322F;box-shadow:8px 8px 18px rgba(160,140,110,.28),-5px -5px 12px rgba(255,255,255,1),inset 3px 3px 6px rgba(255,255,255,1),inset -3px -3px 6px rgba(169,127,60,.14)" style-active="transform:scale(.94)">{{ link.label }}</a>
+            <a href="{{ link.href }}" style="{{ link.style }}" style-hover="{{ link.styleHover }}" style-active="transform:scale(.94)">{{ link.label }}</a>
           </sc-for>
         </div>
       </sc-if>
 
       <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
         <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
-          <button type="button" onClick="{{ goQuote }}" style="height:52px;padding:0 24px;border:0;cursor:pointer;border-radius:20px;white-space:nowrap;flex-shrink:0;background:linear-gradient(140deg,#2C534F,#17322F);color:#F6F1E9;font-size:13.5px;font-weight:700;letter-spacing:.04em;transition:all .2s;box-shadow:11px 11px 22px rgba(31,58,56,.30),-7px -7px 15px rgba(255,255,255,.45),inset 4px 4px 8px rgba(255,255,255,.20),inset -4px -4px 8px rgba(0,0,0,.16)" style-hover="transform:translateY(-3px);background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F" style-active="transform:scale(.93)">Request a Quote</button>
+          <button type="button" onClick="{{ goQuote }}" style="{{ quoteBtnStyle }}" style-hover="{{ quoteBtnStyleHover }}" style-active="transform:scale(.93)">Request a Quote</button>
         </sc-if>
         <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
           <button type="button" aria-label="Menu" onClick="{{ toggleMenu }}" style="width:52px;height:52px;border:0;cursor:pointer;border-radius:20px;background:#EFE7D9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;box-shadow:9px 9px 18px rgba(160,140,110,.24),-6px -6px 14px rgba(255,255,255,.95),inset 3px 3px 7px rgba(255,255,255,.6)" style-active="box-shadow:inset 8px 8px 16px #e2d8c8,inset -8px -8px 16px #fff">
@@ -271,7 +275,7 @@
         <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="5">
           <a href="{{ link.href }}" onClick="{{ closeMenu }}" style="padding:16px 20px;border-radius:22px;font-size:16px;font-weight:500;color:#332B24;background:#F6F1E9;box-shadow:inset 6px 6px 12px #e6dccb,inset -6px -6px 12px #fff">{{ link.label }}</a>
         </sc-for>
-        <button type="button" onClick="{{ goQuote }}" style="margin-top:4px;height:58px;border:0;cursor:pointer;border-radius:22px;background:linear-gradient(140deg,#2C534F,#17322F);color:#F6F1E9;font-size:15px;font-weight:700;letter-spacing:.04em;box-shadow:11px 11px 22px rgba(31,58,56,.30),-7px -7px 15px rgba(255,255,255,.45),inset 4px 4px 8px rgba(255,255,255,.20),inset -4px -4px 8px rgba(0,0,0,.16)">Request a Quote</button>
+        <button type="button" onClick="{{ goQuote }}" style="{{ quoteBtnStyleMobile }}">Request a Quote</button>
       </div>
     </sc-if>
   </div>
@@ -308,24 +312,36 @@
         </div>
       </div>
 
-      <div data-reveal="1" style="position:relative;min-height:clamp(460px,58vw,680px);align-self:stretch">
+      <div data-reveal="1" style="position:relative;width:100%;height:100%;min-height:clamp(380px,46vw,560px);aspect-ratio:4/3;max-height:580px;align-self:center">
         <div style="position:absolute;inset:0;border-radius:clamp(42px,5.2vw,62px);padding:clamp(12px,1.5vw,18px);background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.82));backdrop-filter:blur(18px) saturate(1.5);box-shadow:20px 20px 44px rgba(160,140,110,.32),-14px -14px 32px rgba(255,255,255,.98),inset 5px 5px 10px rgba(255,255,255,.9),inset -5px -5px 10px rgba(169,127,60,.16)">
-          <div style="position:relative;width:100%;height:100%;border-radius:clamp(32px,4vw,48px);overflow:hidden;box-shadow:inset 3px 3px 8px rgba(0,0,0,.25)">
-            <div style="position:absolute;inset:0;background-image:url('assets/sofa-classic-wood.webp');background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.035)"></div>
-            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,58,56,0) 38%,rgba(31,58,56,.55))"></div>
+          <div onClick="{{ inspectShowroom }}" style="position:relative;width:100%;height:100%;border-radius:clamp(32px,4vw,48px);overflow:hidden;box-shadow:inset 3px 3px 8px rgba(0,0,0,.25);cursor:pointer">
+            <!-- Daytime Showroom Layer -->
+            <div style="position:absolute;inset:0;background-image:url('assets/Haven-Furniture-Mart-Showroom.webp');background-size:cover;background-position:center 32%;transition:opacity 1.2s ease-in-out, transform .8s cubic-bezier(.16,1,.3,1);opacity:{{ heroDayOpacity }}" style-hover="transform:scale(1.035)"></div>
+            <!-- Nighttime Showroom Layer -->
+            <div style="position:absolute;inset:0;background-image:url('assets/Haven-Furniture-Mart-Showroom-Night.webp');background-size:cover;background-position:center 4%;transition:opacity 1.2s ease-in-out, transform .8s cubic-bezier(.16,1,.3,1);opacity:{{ heroNightOpacity }}" style-hover="transform:scale(1.035)"></div>
+            
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,58,56,0) 38%,rgba(31,58,56,.55));pointer-events:none"></div>
+
+            <!-- Day / Night Indicator Pill -->
+            <div style="position:absolute;top:clamp(14px,2vw,22px);left:clamp(14px,2vw,22px);padding:6px 14px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.3);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#E2C795;display:inline-flex;align-items:center;gap:6px;box-shadow:0 8px 20px rgba(0,0,0,.25)">
+              <span style="width:6px;height:6px;border-radius:9999px;background:#E2C795;animation:clayBreathe 2.4s ease-in-out infinite"></span>
+              {{ heroTimeLabel }}
+            </div>
+
+            <!-- Bottom White/Cream Claymorphic Caption Pill -->
             <div style="position:absolute;left:clamp(16px,2.5vw,26px);right:clamp(16px,2.5vw,26px);bottom:clamp(16px,2.5vw,26px);padding:clamp(18px,2.4vw,26px);border-radius:clamp(24px,3vw,34px);background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(244,236,224,.86));backdrop-filter:blur(20px) saturate(1.5);box-shadow:12px 12px 28px rgba(20,30,28,.28),-6px -6px 14px rgba(255,255,255,.8),inset 4px 4px 8px rgba(255,255,255,.95),inset -4px -4px 8px rgba(169,127,60,.12)">
               <div style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#A97F3C;font-weight:700">Flagship showroom</div>
-              <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(21px,2.4vw,27px);font-weight:600;color:#2B241E;margin-top:6px;line-height:1.15">Agrabad Access Road, Chattogram</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.2vw,25px);font-weight:600;color:#2B241E;margin-top:6px;line-height:1.2">Opposite of RAK Ceramics, Agrabad Access Road, Chattogram</div>
             </div>
           </div>
         </div>
 
-        <div style="position:absolute;top:clamp(-10px,-1vw,0px);right:clamp(-6px,-1vw,4px);width:clamp(112px,14vw,158px);height:clamp(112px,14vw,158px);border-radius:9999px;background:linear-gradient(140deg,#F3EADC,#DCC59B);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:clayFloatSlow 12s ease-in-out infinite;box-shadow:18px 18px 34px rgba(160,140,110,.32),-12px -12px 26px rgba(255,255,255,.9),inset 6px 6px 12px rgba(255,255,255,.7),inset -6px -6px 12px rgba(169,127,60,.18)">
+        <div style="position:absolute;top:clamp(-12px,-1.2vw,0px);right:clamp(-10px,-1.2vw,2px);width:clamp(110px,13vw,150px);height:clamp(110px,13vw,150px);border-radius:9999px;background:linear-gradient(140deg,#F3EADC,#DCC59B);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:clayFloatSlow 12s ease-in-out infinite;box-shadow:18px 18px 34px rgba(160,140,110,.32),-12px -12px 26px rgba(255,255,255,.9),inset 6px 6px 12px rgba(255,255,255,.7),inset -6px -6px 12px rgba(169,127,60,.18)">
           <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,40px);font-weight:700;color:#2C534F;line-height:1">2020</span>
           <span style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#6B6055;font-weight:700;margin-top:4px">Established</span>
         </div>
 
-        <div style="position:absolute;z-index:4;left:0;top:clamp(26px,4vw,54px);width:clamp(74px,9vw,104px);height:clamp(74px,9vw,104px);border-radius:34px;background:linear-gradient(140deg,#3A6560,#1B3835);display:flex;align-items:center;justify-content:center;animation:badgeDrift 8s ease-in-out infinite;box-shadow:16px 16px 30px rgba(31,58,56,.34),-10px -10px 22px rgba(255,255,255,.7),inset 5px 5px 10px rgba(255,255,255,.16),inset -5px -5px 10px rgba(0,0,0,.28)">
+        <div style="position:absolute;z-index:4;left:clamp(12px,2vw,22px);bottom:clamp(95px,12vw,140px);width:clamp(66px,8vw,92px);height:clamp(66px,8vw,92px);border-radius:clamp(22px,2.6vw,30px);background:linear-gradient(140deg,#3A6560,#1B3835);display:flex;align-items:center;justify-content:center;animation:badgeDrift 8s ease-in-out infinite;box-shadow:14px 14px 30px rgba(0,0,0,.4),-4px -4px 12px rgba(255,255,255,.25),inset 4px 4px 8px rgba(255,255,255,.22),inset -4px -4px 8px rgba(0,0,0,.38)">
           <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.6vw,44px);color:#D9BA83;line-height:1">✦</span>
         </div>
       </div>
@@ -397,7 +413,7 @@
           <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#A97F3C;font-weight:700;margin-bottom:16px">Collections</div>
           <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,60px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">A snapshot of what we make</h2>
         </div>
-        <p style="margin:0;max-width:360px;padding:20px 24px;border-radius:26px;background:linear-gradient(150deg,rgba(255,255,255,.88),rgba(243,235,221,.74));font-size:15px;line-height:1.65;color:#5C5245;box-shadow:14px 14px 28px rgba(160,140,110,.2),-9px -9px 20px rgba(255,255,255,.92),inset 5px 5px 10px rgba(255,255,255,.7),inset -5px -5px 10px rgba(169,127,60,.07)">Every piece here started as a conversation about one room, one measurement, one preference.</p>
+        <p style="margin:0;max-width:380px;padding:20px 24px;border-radius:26px;background:radial-gradient(circle at 15% 20%,rgba(226,199,149,.22) 0%,transparent 55%),radial-gradient(circle at 85% 80%,rgba(169,127,60,.18) 0%,transparent 55%),linear-gradient(145deg,#2B554F 0%,#1B3C38 45%,#102825 100%);border:1.5px solid rgba(226,199,149,.38);font-size:14.5px;line-height:1.65;color:rgba(246,241,233,.9);box-shadow:14px 16px 34px rgba(18,38,36,.28),-8px -8px 20px rgba(255,255,255,.8),inset 3px 3px 7px rgba(255,255,255,.18),inset -3px -3px 7px rgba(0,0,0,.35)">Every piece here started as a conversation about one room, one measurement, one preference.</p>
       </div>
 
       <sc-if value="{{ tabsOn }}" hint-placeholder-val="{{ true }}">
@@ -411,7 +427,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2vw,24px)">
         <sc-for list="{{ shownPieces }}" as="p" hint-placeholder-count="6">
           <div data-reveal="1" style="border-radius:36px;overflow:hidden;background:linear-gradient(150deg,rgba(255,255,255,.92),rgba(243,235,221,.82));backdrop-filter:blur(18px) saturate(1.5);transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s;box-shadow:9px 9px 18px rgba(160,140,110,.3),-7px -7px 15px rgba(255,255,255,.95),inset 4px 4px 8px rgba(255,255,255,.85),inset -4px -4px 8px rgba(169,127,60,.15)" style-hover="transform:translateY(-8px);box-shadow:16px 16px 32px rgba(160,140,110,.36),-9px -9px 20px rgba(255,255,255,.95);">
-            <div style="position:relative;margin:14px 14px 0;border-radius:26px;overflow:hidden;aspect-ratio:4/3.1;background:linear-gradient(150deg,#E4D6BF,#C4A279);box-shadow:inset 3px 3px 6px rgba(0,0,0,.15)">
+            <div onClick="{{ p.onClick }}" style="position:relative;margin:14px 14px 0;border-radius:26px;overflow:hidden;aspect-ratio:4/3.1;background:linear-gradient(150deg,#E4D6BF,#C4A279);box-shadow:inset 3px 3px 6px rgba(0,0,0,.15);cursor:pointer">
               <div style="{{ p.photo }}"></div>
               <div style="position:absolute;top:14px;left:14px;padding:8px 15px;border-radius:9999px;background:rgba(246,241,233,.92);backdrop-filter:blur(10px);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#514839;box-shadow:0 4px 10px rgba(0,0,0,.12)">{{ p.cat }}</div>
             </div>
@@ -426,82 +442,152 @@
     </div>
   </section>
 
-  <!-- BESPOKE CONFIGURATOR -->
-  <!-- BESPOKE 3D CONFIGURATOR -->
-  <section id="bespoke" data-screen-label="Bespoke highlight" style="padding:clamp(14px,2vw,26px) clamp(14px,3vw,40px)">
-    <div data-reveal="1" style="max-width:1300px;margin:0 auto;position:relative;overflow:hidden;border-radius:clamp(40px,5vw,60px);background:linear-gradient(155deg,#254743,#142C2A 65%,#183330);backdrop-filter:blur(18px) saturate(1.5);padding:clamp(34px,5vw,76px);border:1.5px solid rgba(217,186,131,.35);box-shadow:24px 24px 50px rgba(18,38,36,.4),-12px -12px 30px rgba(255,255,255,.7),inset 4px 4px 10px rgba(255,255,255,.12),inset -4px -4px 10px rgba(0,0,0,.3)">
-      <div style="position:absolute;width:46vh;height:46vh;border-radius:9999px;right:-12%;top:-16%;background:radial-gradient(circle,rgba(201,161,119,.28),rgba(201,161,119,0) 68%);filter:blur(30px);animation:clayFloat 9s ease-in-out infinite"></div>
-      <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:clamp(30px,4vw,58px);align-items:stretch">
-        <div>
-          <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#E2C795;font-weight:700;margin-bottom:18px">Fully bespoke</div>
-          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,62px);line-height:1.04;font-weight:600;color:#F6F1E9;letter-spacing:-.01em">Built to your space, not mass-produced</h2>
-          <p style="margin:22px 0 0;max-width:38ch;font-size:clamp(15px,1.5vw,18px);line-height:1.7;color:rgba(246,241,233,.78)">Pick a piece, try a finish. In the studio we go further — your measurements, your fabric, your wood, drawn and approved before a single cut is made.</p>
-
-          <div style="margin-top:clamp(26px,3vw,38px)">
-            <div style="font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,233,.7);font-weight:700;margin-bottom:13px">1 · Choose a piece</div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <sc-for list="{{ pieceBtns }}" as="b" hint-placeholder-count="2">
-                <button type="button" onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.label }}</button>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="margin-top:clamp(22px,3vw,30px)">
-            <div style="font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,233,.7);font-weight:700;margin-bottom:13px">2 · Choose a finish</div>
-            <div style="display:flex;gap:14px;flex-wrap:wrap">
-              <sc-for list="{{ finishBtns }}" as="f" hint-placeholder-count="4">
-                <button type="button" aria-label="{{ f.name }}" onClick="{{ f.onClick }}" style="{{ f.style }}">
-                  <span style="{{ f.dot }}"></span>
-                </button>
-              </sc-for>
-            </div>
-            <div style="margin-top:18px;display:inline-flex;align-items:center;gap:12px;padding:13px 22px;border-radius:9999px;background:linear-gradient(150deg,rgba(255,255,255,.12),rgba(243,235,221,.04));border:1px solid rgba(217,186,131,.3);box-shadow:inset 4px 4px 8px rgba(0,0,0,.25),inset -4px -4px 8px rgba(255,255,255,.05)">
-              <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#F6F1E9">{{ finishName }}</span>
-              <span style="width:5px;height:5px;border-radius:9999px;background:#E2C795"></span>
-              <span style="font-size:12.5px;color:rgba(246,241,233,.75);font-weight:500">{{ finishNote }}</span>
-            </div>
-          </div>
-
-          <button type="button" onClick="{{ goQuote }}" style="margin-top:clamp(26px,3vw,36px);height:62px;padding:0 32px;border:0;cursor:pointer;border-radius:22px;background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;font-size:15px;font-weight:700;letter-spacing:.03em;transition:all .22s cubic-bezier(.16,1,.3,1);box-shadow:12px 12px 24px rgba(0,0,0,.35),-6px -6px 14px rgba(255,255,255,.15),inset 3px 3px 7px rgba(255,255,255,.45),inset -3px -3px 7px rgba(0,0,0,.2)" style-hover="transform:translateY(-3px);filter:brightness(1.05);" style-active="transform:scale(.93)">Design mine like this</button>
+  <!-- BESPOKE ATELIER (DYNAMIC ADAPTIVE LUXURY) -->
+  <section id="bespoke" data-screen-label="Bespoke atelier" style="padding:clamp(20px,3.5vw,48px) clamp(16px,3.5vw,44px)">
+    <div data-reveal="1" style="{{ bespokeCardStyle }}">
+      
+      <!-- Clean Top Header: Left Title + Right Category Tabs with Animated Hand Pointer -->
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:clamp(24px,3.2vw,36px);border-bottom:1px solid rgba(217,186,131,.18);padding-bottom:24px">
+        <div style="max-width:540px">
+          <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#E2C795;font-weight:700;margin-bottom:10px">Bespoke Studio · Chattogram</div>
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);line-height:1.08;font-weight:600;color:#F6F1E9;letter-spacing:-.01em">Crafted to your exact floorplan</h2>
         </div>
 
-        <div style="position:relative;display:flex;align-items:center;justify-content:center;min-height:clamp(320px,38vw,440px)">
-          <div style="position:absolute;width:min(420px,92%);aspect-ratio:1;border-radius:9999px;background:radial-gradient(circle,rgba(201,161,119,.28),rgba(201,161,119,0) 66%)"></div>
-          <div style="position:relative;width:min(430px,100%);aspect-ratio:1.18;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12%">
-
-            <sc-if value="{{ isSofa }}" hint-placeholder-val="{{ true }}">
-              <div style="position:relative;width:88%;height:60%">
-                <div style="position:absolute;left:8%;right:8%;top:0;height:56%;border-radius:44px 44px 26px 26px;background:{{ shadeBack }};box-shadow:18px 24px 40px rgba(0,0,0,.38),-8px -8px 18px rgba(255,255,255,.15),inset 8px 8px 16px rgba(255,255,255,.35),inset -10px -12px 22px rgba(0,0,0,.25)"></div>
-                <div style="position:absolute;left:0;bottom:16%;width:20%;height:52%;border-radius:34px;background:{{ shadeArm }};box-shadow:14px 18px 32px rgba(0,0,0,.35),inset 6px 6px 12px rgba(255,255,255,.3),inset -8px -8px 14px rgba(0,0,0,.22)"></div>
-                <div style="position:absolute;right:0;bottom:16%;width:20%;height:52%;border-radius:34px;background:{{ shadeArm }};box-shadow:14px 18px 32px rgba(0,0,0,.35),inset 6px 6px 12px rgba(255,255,255,.3),inset -8px -8px 14px rgba(0,0,0,.22)"></div>
-                <div style="position:absolute;left:14%;right:14%;bottom:14%;height:34%;border-radius:30px;background:{{ shadeSeat }};box-shadow:16px 20px 36px rgba(0,0,0,.36),inset 8px 8px 16px rgba(255,255,255,.35),inset -10px -10px 20px rgba(0,0,0,.22)"></div>
-                <div style="position:absolute;left:19%;bottom:0;width:9%;height:16%;border-radius:0 0 14px 14px;background:linear-gradient(180deg,#8A6231,#4E3819);box-shadow:6px 8px 16px rgba(0,0,0,.4)"></div>
-                <div style="position:absolute;right:19%;bottom:0;width:9%;height:16%;border-radius:0 0 14px 14px;background:linear-gradient(180deg,#8A6231,#4E3819);box-shadow:6px 8px 16px rgba(0,0,0,.4)"></div>
-                <div style="position:absolute;left:6%;right:6%;bottom:-8%;height:12%;border-radius:9999px;background:radial-gradient(ellipse,rgba(0,0,0,.45),rgba(0,0,0,0) 70%);filter:blur(8px)"></div>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ isTable }}" hint-placeholder-val="{{ false }}">
-              <div style="position:relative;width:92%;height:56%">
-                <div style="position:absolute;left:0;right:0;top:0;height:22%;border-radius:9999px;background:{{ shadeBack }};box-shadow:18px 24px 40px rgba(0,0,0,.38),-8px -8px 18px rgba(255,255,255,.15),inset 8px 8px 16px rgba(255,255,255,.35),inset -10px -12px 22px rgba(0,0,0,.25)"></div>
-                <div style="position:absolute;left:7%;right:7%;top:20%;height:10%;border-radius:0 0 22px 22px;background:{{ shadeArm }};box-shadow:inset 4px 4px 8px rgba(0,0,0,.22),0 12px 24px rgba(0,0,0,.3)"></div>
-                <div style="position:absolute;left:11%;top:29%;width:7%;height:66%;border-radius:0 0 16px 16px;background:{{ shadeSeat }};box-shadow:10px 14px 26px rgba(0,0,0,.35),inset 4px 0 8px rgba(255,255,255,.3),inset -4px 0 8px rgba(0,0,0,.22)"></div>
-                <div style="position:absolute;right:11%;top:29%;width:7%;height:66%;border-radius:0 0 16px 16px;background:{{ shadeSeat }};box-shadow:10px 14px 26px rgba(0,0,0,.35),inset 4px 0 8px rgba(255,255,255,.3),inset -4px 0 8px rgba(0,0,0,.22)"></div>
-                <div style="position:absolute;left:16%;right:16%;top:56%;height:6%;border-radius:9999px;background:{{ shadeArm }};box-shadow:inset 3px 3px 6px rgba(0,0,0,.25)"></div>
-                <div style="position:absolute;left:2%;right:2%;bottom:-10%;height:13%;border-radius:9999px;background:radial-gradient(ellipse,rgba(0,0,0,.45),rgba(0,0,0,0) 70%);filter:blur(8px)"></div>
-              </div>
-            </sc-if>
-
-          </div>
-          <div style="position:absolute;top:0;right:2%;padding:11px 20px 11px 14px;border-radius:9999px;background:linear-gradient(150deg,rgba(255,255,255,.18),rgba(243,235,221,.08));backdrop-filter:blur(16px) saturate(1.6);border:1px solid rgba(217,186,131,.38);box-shadow:10px 10px 24px rgba(0,0,0,.35),-5px -5px 14px rgba(255,255,255,.12),inset 2px 2px 5px rgba(255,255,255,.25),inset -2px -2px 5px rgba(0,0,0,.25);display:inline-flex;align-items:center;gap:10px;animation:liveBadgeFloat 6s ease-in-out infinite">
-            <span style="position:relative;display:flex;align-items:center;justify-content:center;width:10px;height:10px">
-              <span style="position:absolute;inset:0;border-radius:9999px;background:#52D68A;animation:livePulse 2s cubic-bezier(0.4,0,0.6,1) infinite"></span>
-              <span style="width:8px;height:8px;border-radius:9999px;background:#84F2AF;box-shadow:0 0 6px #52D68A;display:block"></span>
-            </span>
-            <span style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#F6F1E9;font-weight:700;line-height:1">Live preview</span>
-          </div>
+        <!-- Clean Category Switcher Matching Header Pills -->
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ pieceBtns }}" as="b" hint-placeholder-count="4">
+            <button type="button" onClick="{{ b.onClick }}" style="{{ b.style }}" style-hover="{{ b.styleHover }}" style-active="transform:scale(.94)">{{ b.label }}</button>
+          </sc-for>
         </div>
       </div>
+
+      <!-- Main Showcase Grid: 55% Luxury Image / 45% Clean Material & Detail Card -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(24px,3.6vw,48px);align-items:center">
+        
+        <!-- Showcase Image Canvas (Click to Enlarge) -->
+        <div onClick="{{ inspectPhoto }}" style="position:relative;border-radius:28px;overflow:hidden;aspect-ratio:16/11;border:1px solid rgba(217,186,131,.3);box-shadow:16px 20px 38px rgba(0,0,0,.45);background:{{ bespokeCanvasBg }};cursor:pointer">
+          <div style="{{ bespokePhotoStyle }}"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.6) 100%);pointer-events:none"></div>
+
+          <!-- Subtle Clean Translucent Tag on Photo -->
+          <div style="position:absolute;top:14px;left:14px;padding:6px 14px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.28);box-shadow:0 8px 20px rgba(0,0,0,.25);font-size:10.5px;color:#E2C795;font-weight:700;letter-spacing:.1em;text-transform:uppercase">
+            {{ activePieceBadge }}
+          </div>
+
+          <!-- Bottom Floating Translucent Caption Pill with snug + button -->
+          <div style="position:absolute;bottom:14px;left:14px;display:inline-flex;align-items:center;gap:14px;padding:9px 14px 9px 16px;border-radius:18px;background:rgba(14,32,30,.55);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.25);box-shadow:0 8px 20px rgba(0,0,0,.3);max-width:calc(100% - 28px)">
+            <div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:16.5px;font-weight:600;color:#F6F1E9;line-height:1.1">{{ activePieceTitle }}</div>
+              <div style="font-size:11px;color:rgba(246,241,233,.78);margin-top:2px">{{ finishWood }} · 100% Solid Seasoned</div>
+            </div>
+            <button type="button" onClick="{{ inspectPhoto }}" aria-label="Enlarge Photo" style="width:30px;height:30px;flex-shrink:0;border:0;cursor:pointer;border-radius:10px;background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;box-shadow:2px 2px 6px rgba(0,0,0,.25),inset 2px 2px 4px rgba(255,255,255,.5);transition:all .2s" style-hover="transform:scale(1.08);filter:brightness(1.08)">
+              +
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Side: Clean Curated Details & Swatches -->
+        <div style="display:flex;flex-direction:column;justify-content:center">
+          
+          <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#E2C795;font-weight:700;margin-bottom:6px">Select Finish &amp; Tone</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.2vw,28px);font-weight:600;color:#F6F1E9;margin-bottom:10px">{{ finishName }}</div>
+          
+          <p style="margin:0 0 18px;font-size:14.5px;line-height:1.65;color:{{ bespokeSubText }}">{{ activePieceSub }}</p>
+
+          <!-- Clean Material Swatches -->
+          <div style="display:flex;gap:12px;align-items:center;margin-bottom:20px">
+            <sc-for list="{{ finishBtns }}" as="f" hint-placeholder-count="3">
+              <button type="button" aria-label="{{ f.name }}" onClick="{{ f.onClick }}" style="{{ f.style }}">
+                <span style="{{ f.dot }}"></span>
+              </button>
+            </sc-for>
+          </div>
+
+          <!-- Clean Single Spec Row -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 0;border-top:1px solid rgba(217,186,131,.18);border-bottom:1px solid rgba(217,186,131,.18);margin-bottom:22px">
+            <div>
+              <div style="font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#E2C795;font-weight:700">Timber &amp; Core</div>
+              <div style="font-size:13.5px;color:#F6F1E9;font-weight:600;margin-top:3px">{{ finishWood }}</div>
+            </div>
+            <div>
+              <div style="font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#E2C795;font-weight:700">Upholstery / Top</div>
+              <div style="font-size:13.5px;color:#F6F1E9;font-weight:600;margin-top:3px">{{ finishUpholstery }}</div>
+            </div>
+          </div>
+
+          <!-- Single Clean Action & WhatsApp Link -->
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <button type="button" onClick="{{ goBespokeQuote }}" style="height:54px;padding:0 30px;border:0;cursor:pointer;border-radius:20px;background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;font-size:14.5px;font-weight:700;letter-spacing:.02em;transition:all .22s cubic-bezier(.16,1,.3,1);box-shadow:9px 11px 22px rgba(0,0,0,.45),-5px -5px 12px rgba(255,255,255,.14),inset 3px 3px 7px rgba(255,255,255,.5),inset -3px -3px 7px rgba(0,0,0,.25)" style-hover="transform:translateY(-2px);filter:brightness(1.05);">
+              Customize for my room →
+            </button>
+
+            <a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart,%20I%20am%20interested%20in%20customizing%20a%20bespoke%20piece." target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:12px;padding:8px 20px 8px 10px;border-radius:20px;background:linear-gradient(150deg,rgba(255,255,255,.14),rgba(243,235,221,.06));backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(217,186,131,.24);box-shadow:8px 8px 18px rgba(0,0,0,.32),-4px -4px 10px rgba(255,255,255,.08),inset 2px 2px 4px rgba(255,255,255,.16),inset -2px -2px 4px rgba(0,0,0,.2);font-size:13.5px;font-weight:600;color:#F6F1E9;text-decoration:none;transition:all .25s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-3px);background:linear-gradient(150deg,rgba(217,186,131,.3),rgba(243,235,221,.12));border-color:rgba(217,186,131,.5);box-shadow:10px 10px 22px rgba(0,0,0,.4),-4px -4px 12px rgba(255,255,255,.14);" style-active="transform:scale(.96)">
+              <span style="width:36px;height:36px;border-radius:12px;background:linear-gradient(140deg,#D9BA83,#A97F3C);display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 8px rgba(0,0,0,.24),inset 2px 2px 4px rgba(255,255,255,.45);flex-shrink:0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#17322F" aria-hidden="true"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm0 17.76c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a7.87 7.87 0 0 1-1.21-4.19c0-4.36 3.55-7.91 7.91-7.91 2.11 0 4.09.82 5.58 2.31a7.86 7.86 0 0 1 2.31 5.58c0 4.36-3.55 7.92-7.9 7.92zm4.33-5.93c-.24-.12-1.4-.69-1.62-.77-.22-.08-.37-.12-.53.12-.16.24-.61.77-.75.93-.14.16-.28.18-.51.06-.24-.12-1-.37-1.91-1.18-.7-.63-1.18-1.4-1.32-1.64-.14-.24-.02-.37.1-.49.11-.11.24-.28.37-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.43-.06-.12-.53-1.28-.73-1.76-.19-.46-.39-.4-.53-.41h-.46c-.16 0-.41.06-.63.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.02.4 1.38.52.58.18 1.11.16 1.53.1.47-.07 1.4-.57 1.6-1.13.2-.55.2-1.02.14-1.13-.06-.11-.2-.17-.43-.29z"/></svg>
+              </span>
+              <span>WhatsApp Consultation</span>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MOMENTS OF HEAVEN FURNITURE MART SECTION -->
+  <section id="moments" data-screen-label="Moments" style="padding:clamp(36px,5vw,72px) clamp(20px,4vw,48px)">
+    <div style="max-width:1240px;margin:0 auto">
+      
+      <!-- Section Header -->
+      <div data-reveal="1" style="max-width:760px;margin-bottom:clamp(24px,3vw,38px)">
+        <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#A97F3C;font-weight:700;margin-bottom:14px">Heritage &amp; Recognition</div>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">Moments of Heaven Furniture Mart</h2>
+        <p style="margin:16px 0 0;font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:#5C5245">From representing Chattogram at national furniture fairs to receiving 1st prize industry awards and sponsoring youth creative talent, explore the defining milestones of our journey.</p>
+      </div>
+
+      <!-- Main Auto-Sliding Showcase Card -->
+      <div data-reveal="1" onMouseEnter="{{ pauseMoment }}" onMouseLeave="{{ resumeMoment }}" style="position:relative;border-radius:clamp(36px,4.5vw,52px);padding:clamp(14px,1.8vw,22px);background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.85));backdrop-filter:blur(20px) saturate(1.5);box-shadow:22px 24px 50px rgba(160,140,110,.32),-14px -14px 32px rgba(255,255,255,.98),inset 5px 5px 12px rgba(255,255,255,.9),inset -5px -5px 12px rgba(169,127,60,.16)">
+        
+        <div style="position:relative;width:100%;min-height:clamp(360px,44vw,560px);aspect-ratio:16/10;max-height:640px;border-radius:clamp(28px,3.8vw,42px);overflow:hidden;box-shadow:inset 3px 3px 10px rgba(0,0,0,.3)">
+          <!-- Auto-sliding Photo layer with transition -->
+          <div style="{{ activeMomentPhotoStyle }}" onClick="{{ inspectActiveMoment }}" style-hover="transform:scale(1.025);cursor:pointer"></div>
+          
+          <!-- Gradient Vignette -->
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 35%,rgba(15,34,32,.85) 100%);pointer-events:none"></div>
+
+          <!-- Top Badge: Event Tag & Slide Count -->
+          <div style="position:absolute;top:clamp(16px,2.5vw,26px);left:clamp(16px,2.5vw,26px);right:clamp(16px,2.5vw,26px);display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:5">
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.3);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#E2C795;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25)">
+              <span style="width:7px;height:7px;border-radius:9999px;background:#34A853;box-shadow:0 0 8px #34A853"></span>
+              {{ activeMomentTag }}
+            </span>
+            <span style="padding:8px 16px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.18);font-size:12px;font-weight:700;color:#F6F1E9;box-shadow:0 8px 20px rgba(0,0,0,.25)">
+              {{ momentCountText }}
+            </span>
+          </div>
+
+          <!-- Compact Translucent Left Caption Box -->
+          <div style="position:absolute;bottom:clamp(14px,2.2vw,24px);left:clamp(14px,2.2vw,24px);max-width:clamp(280px,46vw,480px);padding:clamp(10px,1.4vw,14px) clamp(14px,1.8vw,18px);border-radius:clamp(18px,2.2vw,24px);background:rgba(14,32,30,.55);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(226,199,149,.25);box-shadow:0 12px 30px rgba(0,0,0,.35),inset 2px 2px 4px rgba(255,255,255,.12);z-index:5">
+            <h3 style="margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.1vw,22px);font-weight:600;color:#F6F1E9;line-height:1.2">{{ activeMomentTitle }}</h3>
+            <p style="margin:0;font-size:clamp(11.5px,1vw,13px);line-height:1.45;color:rgba(246,241,233,.82)">{{ activeMomentDesc }}</p>
+          </div>
+        </div>
+
+        <!-- 5 Thumbnail Indicators -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.2vw,14px);margin-top:clamp(14px,1.8vw,20px)">
+          <sc-for list="{{ momentThumbnails }}" as="thumb" hint-placeholder-count="5">
+            <button type="button" onClick="{{ thumb.onClick }}" aria-label="{{ thumb.title }}" style="{{ thumb.style }}" style-hover="transform:translateY(-3px);border-color:rgba(169,127,60,.6)">
+              <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:6px">
+                <img src="{{ thumb.img }}" alt="{{ thumb.title }}" style="width:100%;height:100%;object-fit:cover;display:block" />
+              </div>
+              <div style="font-size:11px;font-weight:700;color:{{ thumb.textColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2">{{ thumb.shortTitle }}</div>
+            </button>
+          </sc-for>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
@@ -569,26 +655,169 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
-  <section id="gallery" data-screen-label="Gallery" style="padding:clamp(38px,5vw,74px) clamp(20px,4vw,48px)">
+  <!-- SHOWROOM SECTION -->
+  <section id="showroom" data-screen-label="Showroom" style="padding:clamp(38px,5vw,74px) clamp(20px,4vw,48px)">
+    <div style="max-width:1240px;margin:0 auto">
+      
+      <!-- Section Header with Google Rating Badge under description -->
+      <div data-reveal="1" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:clamp(28px,3.5vw,44px)">
+        <div style="max-width:680px">
+          <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#A97F3C;font-weight:700;margin-bottom:14px">Flagship Showroom · Agrabad</div>
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,60px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">Experience Furniture in Person</h2>
+          <p style="margin:16px 0 0;font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:#5C5245">Walk through our multi-level experience center on Agrabad Access Road. Touch the seasoned teakwood, test cushion densities, and explore hundreds of luxury upholstery fabrics with our senior design consultants.</p>
+
+          <!-- GOOGLE REVIEWS BADGE (Exact replica of user reference) -->
+          <div style="margin-top:20px;display:inline-flex;flex-direction:column;border-radius:14px;overflow:hidden;background:#FFFFFF;border:1px solid #D8DCE2;box-shadow:8px 10px 24px rgba(160,140,110,.2),-4px -4px 10px rgba(255,255,255,.95)">
+            <!-- Top Content -->
+            <div style="padding:12px 18px;display:flex;align-items:center;gap:14px;background:#FFFFFF">
+              
+              <!-- Google G Logo in Speech Bubble -->
+              <div style="position:relative;width:44px;height:44px;border:1.5px solid #70757A;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#FFFFFF;flex-shrink:0">
+                <!-- Pointer tail on right edge of bubble -->
+                <span style="position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid #70757A"></span>
+                <span style="position:absolute;right:-4.5px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:5px solid #FFFFFF"></span>
+                
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                </svg>
+              </div>
+
+              <!-- Rating Stars & Details (4.8 stars with 80% filled 5th star) -->
+              <div>
+                <div style="display:flex;align-items:center;gap:3px;font-size:20px;line-height:1">
+                  <span style="color:#FBBF24">★</span>
+                  <span style="color:#FBBF24">★</span>
+                  <span style="color:#FBBF24">★</span>
+                  <span style="color:#FBBF24">★</span>
+                  <span style="position:relative;display:inline-block;color:#D1D5DB;line-height:1">
+                    ★
+                    <span style="position:absolute;left:0;top:0;width:65%;overflow:hidden;color:#FBBF24;line-height:1">★</span>
+                  </span>
+                </div>
+                <div style="font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;color:#3C4043;font-weight:400;margin-top:5px;line-height:1.2">
+                  <span style="font-size:16px;font-weight:700;color:#202124">4.8</span> stars
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Blue Ribbon -->
+            <div style="background:#1A73E8;color:#FFFFFF;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13.5px;font-weight:600;padding:6px 16px;text-align:center;letter-spacing:.01em">
+              Google Reviews
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right: Action Buttons -->
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <a href="https://maps.google.com/?q=Heaven+Furniture+Mart+Agrabad+Chattogram" target="_blank" rel="noopener noreferrer" style="height:50px;padding:0 24px;border-radius:18px;background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.82));border:1.5px solid rgba(169,127,60,.28);color:#2B241E;font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:8px 8px 18px rgba(160,140,110,.25),-5px -5px 12px rgba(255,255,255,.95),inset 2px 2px 4px rgba(255,255,255,.85)" style-hover="transform:translateY(-2px);border-color:rgba(169,127,60,.6);">
+            📍 Google Maps Directions ↗
+          </a>
+          <button type="button" onClick="{{ goQuote }}" style="height:50px;padding:0 26px;border:0;cursor:pointer;border-radius:18px;background:linear-gradient(140deg,#2C534F,#17322F);color:#E2C795;font-size:13.5px;font-weight:700;box-shadow:8px 8px 18px rgba(31,58,56,.35),-4px -4px 10px rgba(255,255,255,.8),inset 3px 3px 6px rgba(255,255,255,.2);display:inline-flex;align-items:center;gap:8px" style-hover="transform:translateY(-2px);background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;">
+            Schedule a Visit →
+          </button>
+        </div>
+      </div>
+
+      <!-- Showroom Interactive Showcase 2-Column Grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:clamp(22px,3vw,38px);align-items:stretch">
+        
+        <!-- Left: Grand Showroom Photograph Box with 3D Squircle Bevel -->
+        <div data-reveal="1" style="position:relative;border-radius:34px;padding:12px;background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.82));backdrop-filter:blur(18px) saturate(1.5);box-shadow:18px 20px 42px rgba(160,140,110,.32),-12px -12px 26px rgba(255,255,255,.98),inset 4px 4px 8px rgba(255,255,255,.9),inset -4px -4px 8px rgba(169,127,60,.14);min-height:380px;display:flex;flex-direction:column">
+          <div onClick="{{ inspectShowroom }}" style="position:relative;width:100%;height:100%;min-height:360px;border-radius:26px;overflow:hidden;box-shadow:inset 3px 3px 8px rgba(0,0,0,.25);cursor:pointer">
+            <div style="position:absolute;inset:0;background-image:url('assets/Haven-Furniture-Mart-Showroom.webp');background-size:cover;background-position:center;transition:transform .7s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.035)"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 40%,rgba(23,50,47,.75) 100%);pointer-events:none"></div>
+            
+            <!-- Top Translucent Pill -->
+            <div style="position:absolute;top:14px;left:14px;padding:6px 14px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.28);box-shadow:0 8px 20px rgba(0,0,0,.25);font-size:10.5px;color:#E2C795;font-weight:700;letter-spacing:.1em;text-transform:uppercase">
+              Physical Showroom
+            </div>
+
+            <!-- Compact Translucent Left Caption with snug + button -->
+            <div style="position:absolute;bottom:14px;left:14px;display:inline-flex;align-items:center;gap:14px;padding:9px 14px 9px 16px;border-radius:18px;background:rgba(14,32,30,.55);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.25);box-shadow:0 8px 20px rgba(0,0,0,.3);max-width:calc(100% - 28px)">
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#F6F1E9;line-height:1.15">Agrabad Access Road Showroom</div>
+                <div style="font-size:11.5px;color:rgba(246,241,233,.8);margin-top:3px">Sat–Thu: 9:00 AM – 9:30 PM · Friday: Closed</div>
+              </div>
+              <button type="button" onClick="{{ inspectShowroom }}" aria-label="Enlarge Showroom Photo" style="width:30px;height:30px;flex-shrink:0;border:0;cursor:pointer;border-radius:10px;background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;box-shadow:2px 2px 6px rgba(0,0,0,.25),inset 2px 2px 4px rgba(255,255,255,.5);transition:all .2s" style-hover="transform:scale(1.08);filter:brightness(1.08)">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 4 Showroom Perk Tiles -->
+        <div data-reveal="1" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+          <sc-for list="{{ showroomPerks }}" as="perk" hint-placeholder-count="4">
+            <div style="border-radius:28px;padding:24px;background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.82));backdrop-filter:blur(18px) saturate(1.5);box-shadow:9px 9px 18px rgba(160,140,110,.28),-6px -6px 14px rgba(255,255,255,.95),inset 3px 3px 6px rgba(255,255,255,.85),inset -3px -3px 6px rgba(169,127,60,.14);display:flex;flex-direction:column;justify-content:center" style-hover="transform:translateY(-4px);box-shadow:14px 14px 28px rgba(160,140,110,.34);">
+              <div style="width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:linear-gradient(140deg,#2C534F,#17322F);color:#E2C795;box-shadow:6px 6px 14px rgba(31,58,56,.3),inset 2px 2px 4px rgba(255,255,255,.25)">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="{{ perk.icon }}"></path>
+                </svg>
+              </div>
+              <h3 style="margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#2B241E;line-height:1.2">{{ perk.title }}</h3>
+              <p style="margin:0;font-size:13.5px;line-height:1.55;color:#5C5245">{{ perk.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+
+      <!-- Weekly Schedule & Visiting Information Card (Rich Brand Emerald & Gold Gradient Theme) -->
+      <div data-reveal="1" style="margin-top:clamp(22px,3vw,34px);border-radius:32px;padding:clamp(20px,3vw,32px);background:radial-gradient(circle at 10% 15%,rgba(226,199,149,.24) 0%,transparent 45%),radial-gradient(circle at 90% 85%,rgba(169,127,60,.2) 0%,transparent 50%),linear-gradient(145deg,#2B554F 0%,#1B3C38 38%,#122B28 72%,#0A1A18 100%);border:1.5px solid rgba(226,199,149,.38);box-shadow:20px 24px 50px rgba(18,38,36,.42),-10px -10px 24px rgba(255,255,255,.8),inset 4px 4px 10px rgba(255,255,255,.22),inset -4px -4px 10px rgba(0,0,0,.45)">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px;border-bottom:1px solid rgba(226,199,149,.2);padding-bottom:16px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:15px;background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;font-size:20px;box-shadow:4px 4px 12px rgba(0,0,0,.3),inset 2px 2px 4px rgba(255,255,255,.5)">⏰</span>
+            <div>
+              <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#F6F1E9">Showroom Visiting Hours</h3>
+              <p style="margin:3px 0 0;font-size:13px;color:rgba(246,241,233,.78)">Walk-ins welcome anytime during open hours. No appointment necessary.</p>
+            </div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(226,199,149,.15);border:1px solid rgba(226,199,149,.35);font-size:12.5px;font-weight:700;color:#E2C795;box-shadow:inset 2px 2px 4px rgba(255,255,255,.1)">
+            <span style="width:8px;height:8px;border-radius:9999px;background:#34A853;box-shadow:0 0 10px #34A853;animation:clayBreathe 2.5s infinite"></span>
+            Open Sat – Thu: 9:00 AM – 9:30 PM · Friday: Closed
+          </div>
+        </div>
+
+        <!-- 7-Day Grid -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px">
+          <sc-for list="{{ scheduleDays }}" as="d" hint-placeholder-count="7">
+            <div style="{{ d.boxStyle }}">
+              <div style="font-size:13px;font-weight:700;color:{{ d.dayColor }}">{{ d.day }}</div>
+              <div style="font-size:12px;font-weight:600;color:{{ d.timeColor }};margin-top:4px;white-space:nowrap">{{ d.time }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CRAFTED WORK / GALLERY SECTION -->
+  <section id="gallery" data-screen-label="Crafted work" style="padding:clamp(38px,5vw,74px) clamp(20px,4vw,48px)">
     <div style="max-width:1240px;margin:0 auto">
       <div data-reveal="1" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:clamp(22px,2.8vw,34px)">
         <div>
-          <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#A97F3C;font-weight:700;margin-bottom:16px">Showroom &amp; work</div>
-          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,60px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">Walk through Agrabad</h2>
+          <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#A97F3C;font-weight:700;margin-bottom:16px">Client Commissions &amp; Craft</div>
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,60px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">Recent Work Crafted by Our Artisans</h2>
         </div>
         <div style="font-size:13px;color:#4A4238;font-weight:600;padding:11px 22px;border-radius:9999px;background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.82));backdrop-filter:blur(18px) saturate(1.5);box-shadow:8px 8px 16px rgba(160,140,110,.25),-6px -6px 14px rgba(255,255,255,.95),inset 3px 3px 6px rgba(255,255,255,.85),inset -3px -3px 6px rgba(169,127,60,.12)">Tap any photo to enlarge</div>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(14px,1.8vw,20px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:clamp(16px,2vw,24px)">
         <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
-          <button type="button" onClick="{{ g.onClick }}" style="{{ g.wrap }}" style-hover="transform:translateY(-6px);box-shadow:16px 16px 32px rgba(160,140,110,.36),-8px -8px 18px rgba(255,255,255,.95);" style-active="transform:scale(.96)">
-            <div style="position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:linear-gradient(150deg,#E4D6BF,#C4A279);box-shadow:inset 2px 2px 5px rgba(0,0,0,.18)">
+          <button type="button" onClick="{{ g.onClick }}" aria-label="{{ g.caption }}" style="{{ g.wrap }}" style-hover="transform:translateY(-6px);box-shadow:18px 18px 36px rgba(160,140,110,.36),-8px -8px 18px rgba(255,255,255,.95);" style-active="transform:scale(.97)">
+            <div style="position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:linear-gradient(150deg,#E4D6BF,#C4A279);box-shadow:inset 2px 2px 5px rgba(0,0,0,.2)">
               <div style="{{ g.photo }}"></div>
-              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,58,56,0) 40%,rgba(31,58,56,.75))"></div>
-              <div style="position:absolute;left:14px;right:14px;bottom:14px;padding:10px 14px;border-radius:18px;background:rgba(246,241,233,.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 4px 12px rgba(0,0,0,.18)">
-                <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.8vw,20px);font-weight:700;color:#1F3A38;text-align:left;line-height:1.2">{{ g.caption }}</span>
-                <span style="width:32px;height:32px;flex-shrink:0;border-radius:10px;background:linear-gradient(140deg,#D9BA83,#A97F3C);color:#17322F;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;box-shadow:3px 3px 7px rgba(0,0,0,.2),inset 2px 2px 4px rgba(255,255,255,.45)">+</span>
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 42%,rgba(14,32,30,.72) 100%);pointer-events:none"></div>
+              
+              <!-- Translucent Glass Caption Pill with + Icon -->
+              <div style="position:absolute;left:12px;right:12px;bottom:12px;padding:10px 14px;border-radius:18px;background:rgba(14,32,30,.52);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.25);display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 8px 20px rgba(0,0,0,.3)">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.7vw,19px);font-weight:600;color:#F6F1E9;text-align:left;line-height:1.2">{{ g.caption }}</span>
+                <span style="width:32px;height:32px;flex-shrink:0;border-radius:10px;background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;box-shadow:2px 2px 6px rgba(0,0,0,.25),inset 2px 2px 4px rgba(255,255,255,.5)">+</span>
               </div>
             </div>
           </button>
@@ -773,7 +1002,7 @@
           </div>
         </div>
 
-        <div data-reveal="1" style="background:linear-gradient(155deg,#254743,#142C2A 65%,#183330);backdrop-filter:blur(18px) saturate(1.5);border-radius:38px;padding:clamp(28px,3.6vw,44px);border:1.5px solid rgba(217,186,131,.35);box-shadow:20px 20px 45px rgba(18,38,36,.4),-12px -12px 30px rgba(255,255,255,.7),inset 4px 4px 10px rgba(255,255,255,.12),inset -4px -4px 10px rgba(0,0,0,.3);transition:transform .45s cubic-bezier(.16,1,.3,1)">
+        <div data-reveal="1" style="background:radial-gradient(circle at 10% 15%,rgba(226,199,149,.24) 0%,transparent 45%),radial-gradient(circle at 90% 85%,rgba(169,127,60,.2) 0%,transparent 50%),linear-gradient(155deg,#2D5953 0%,#1F4440 35%,#132E2B 72%,#0C1D1B 100%);backdrop-filter:blur(20px) saturate(1.6);border-radius:38px;padding:clamp(28px,3.6vw,44px);border:1.5px solid rgba(226,199,149,.4);box-shadow:22px 24px 52px rgba(18,38,36,.46),-12px -12px 30px rgba(255,255,255,.75),inset 4px 4px 12px rgba(255,255,255,.22),inset -4px -4px 12px rgba(0,0,0,.45);transition:transform .45s cubic-bezier(.16,1,.3,1)">
           <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
             <div>
               <div style="display:flex;gap:8px;margin-bottom:26px">
@@ -826,6 +1055,36 @@
     </div>
   </section>
 
+  <!-- LOCATION / MAP SECTION (Right Above Footer) -->
+  <section id="location" data-screen-label="Showroom map" style="padding:clamp(10px,2vw,20px) clamp(20px,4vw,48px) clamp(38px,5vw,70px)">
+    <div style="max-width:1240px;margin:0 auto">
+      <div data-reveal="1" style="position:relative;border-radius:clamp(32px,4vw,46px);overflow:hidden;border:1.5px solid rgba(169,127,60,.28);box-shadow:18px 20px 45px rgba(160,140,110,.25),-10px -10px 24px rgba(255,255,255,.95),inset 3px 3px 6px rgba(255,255,255,.85),inset -3px -3px 6px rgba(169,127,60,.12);background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.85));backdrop-filter:blur(18px) saturate(1.5)">
+        
+        <!-- Header Bar -->
+        <div style="padding:clamp(16px,2vw,22px) clamp(20px,3vw,32px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-bottom:1px solid rgba(169,127,60,.2)">
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:15px;background:linear-gradient(140deg,#2C534F,#17322F);color:#E2C795;font-size:20px;box-shadow:4px 4px 10px rgba(31,58,56,.3),inset 2px 2px 4px rgba(255,255,255,.2)">📍</span>
+            <div>
+              <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#A97F3C;font-weight:700">Flagship Showroom Location</div>
+              <h3 style="margin:2px 0 0;font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.4vw,28px);font-weight:600;color:#2B241E">Opposite of RAK Ceramics, Agrabad Access Road, Chattogram</h3>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <a href="https://maps.google.com/?q=Heaven+Furniture+Mart+Agrabad+Chattogram" target="_blank" rel="noopener noreferrer" style="height:46px;padding:0 22px;border-radius:16px;background:linear-gradient(140deg,#2C534F,#17322F);color:#E2C795;font-size:13.5px;font-weight:700;display:inline-flex;align-items:center;gap:8px;text-decoration:none;box-shadow:6px 6px 16px rgba(31,58,56,.3),inset 2px 2px 4px rgba(255,255,255,.2)" style-hover="transform:translateY(-2px);background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F">
+              Open in Google Maps ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Google Map Iframe Container -->
+        <div style="position:relative;width:100%;height:clamp(300px,36vw,440px);background:#EAE4D9">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.635465903705!2d91.7905103793457!3d22.329622200000014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd999401bf62b%3A0xcd9639571c8d5c27!2sHeaven%20Furniture%20Mart!5e0!3m2!1sen!2sbd!4v1788204907049!5m2!1sen!2sbd" width="100%" height="100%" style="border:0;display:block" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer data-screen-label="Footer" style="padding:0 clamp(14px,3vw,40px) clamp(20px,3vw,40px)">
     <div style="max-width:1300px;margin:0 auto;position:relative;overflow:hidden;border-radius:clamp(40px,5vw,60px);background:linear-gradient(160deg,#254643,#142927);padding:clamp(34px,5vw,72px);box-shadow:30px 30px 64px rgba(31,58,56,.3),-20px -20px 48px rgba(255,255,255,.8),inset 10px 10px 22px rgba(255,255,255,.07),inset -10px -10px 22px rgba(0,0,0,.3)">
@@ -852,7 +1111,7 @@
           <div style="display:flex;flex-direction:column;gap:14px">
             <div style="display:flex;align-items:flex-start;gap:11px">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9BA83" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11zM12 12.5a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2"></path></svg>
-              <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(246,241,233,.82)">Agrabad Access Road<br />Chattogram, Bangladesh</p>
+              <p style="margin:0;font-size:14.5px;line-height:1.6;color:rgba(246,241,233,.82)">Opposite of RAK Ceramics<br />Agrabad Access Road<br />Chattogram, Bangladesh</p>
             </div>
             <a href="tel:+8801960481983" style="display:flex;align-items:flex-start;gap:11px;font-size:15px;font-weight:700;color:#F6F1E9" style-hover="color:#D9BA83">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D9BA83" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px" aria-hidden="true"><path d="M7.4 3.5H5.1a1.6 1.6 0 0 0-1.6 1.8c.4 3.6 2 6.9 4.5 9.4s5.8 4.1 9.4 4.5a1.6 1.6 0 0 0 1.8-1.6v-2.3a1.6 1.6 0 0 0-1.4-1.6l-2.3-.3a1.6 1.6 0 0 0-1.6.8l-.6 1a12.4 12.4 0 0 1-5.4-5.4l1-.6a1.6 1.6 0 0 0 .8-1.6l-.3-2.3a1.6 1.6 0 0 0-1.6-1.4z"></path></svg>+880 1960-481983
@@ -874,13 +1133,12 @@
 
         <div>
           <div style="font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#D9BA83;font-weight:700;margin-bottom:20px">Follow</div>
-          <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
-            <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
-              <a href="{{ s.href }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;padding:10px 18px 10px 12px;border-radius:20px;background:linear-gradient(150deg,rgba(255,255,255,.14),rgba(243,235,221,.06));backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(217,186,131,.24);box-shadow:8px 8px 18px rgba(0,0,0,.32),-4px -4px 10px rgba(255,255,255,.08),inset 2px 2px 4px rgba(255,255,255,.16),inset -2px -2px 4px rgba(0,0,0,.2);font-size:13.5px;font-weight:600;color:#F6F1E9;transition:all .25s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-3px);background:linear-gradient(150deg,rgba(217,186,131,.3),rgba(243,235,221,.12));border-color:rgba(217,186,131,.5);box-shadow:10px 10px 22px rgba(0,0,0,.4),-4px -4px 12px rgba(255,255,255,.14);" style-active="transform:scale(.96)">
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+            <sc-for list="{{ socials }}" as="s" hint-placeholder-count="5">
+              <a href="{{ s.href }}" target="_blank" rel="noopener" aria-label="{{ s.label }}" style="width:48px;height:48px;border-radius:16px;background:linear-gradient(150deg,rgba(255,255,255,.14),rgba(243,235,221,.06));backdrop-filter:blur(16px) saturate(1.5);border:1px solid rgba(217,186,131,.24);box-shadow:8px 8px 18px rgba(0,0,0,.32),-4px -4px 10px rgba(255,255,255,.08),inset 2px 2px 4px rgba(255,255,255,.16),inset -2px -2px 4px rgba(0,0,0,.2);display:inline-flex;align-items:center;justify-content:center;transition:all .25s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-3px);background:linear-gradient(150deg,rgba(217,186,131,.3),rgba(243,235,221,.12));border-color:rgba(217,186,131,.5);box-shadow:10px 10px 22px rgba(0,0,0,.4),-4px -4px 12px rgba(255,255,255,.14);" style-active="transform:scale(.94)">
                 <span style="width:34px;height:34px;border-radius:11px;background:{{ s.orb }};display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 8px rgba(0,0,0,.24),inset 2px 2px 4px rgba(255,255,255,.45)">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="{{ s.fill }}" stroke="{{ s.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ s.path }}"></path></svg>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="{{ s.fill }}" stroke="{{ s.stroke }}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ s.path }}"></path></svg>
                 </span>
-                <span>{{ s.label }}</span>
               </a>
             </sc-for>
           </div>
@@ -900,6 +1158,20 @@
     </button>
   </sc-if>
 
+  <sc-if value="{{ showroomLbOn }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeShowroomLb }}" style="position:fixed;inset:0;z-index:95;background:rgba(20,32,30,.82);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px)">
+      <div onClick="{{ stopProp }}" style="position:relative;width:min(1060px,100%);max-height:100%;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="position:relative;width:100%;aspect-ratio:16/10;border-radius:clamp(28px,3.4vw,42px);overflow:hidden;background:#000;box-shadow:0 40px 80px rgba(0,0,0,.6)">
+          <img src="assets/Haven-Furniture-Mart-Showroom.webp" alt="Agrabad Flagship Showroom" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;max-width:680px;padding:12px 20px;border-radius:9999px;background:rgba(246,241,233,.94);box-shadow:0 10px 30px rgba(0,0,0,.3)">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#1F3A38">Agrabad Flagship Showroom · Agrabad Access Road, Chattogram</span>
+          <button type="button" onClick="{{ closeShowroomLb }}" aria-label="Close" style="width:40px;height:40px;border:0;cursor:pointer;border-radius:9999px;background:linear-gradient(140deg,#2C534F,#17322F);color:#F6F1E9;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center">✕</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ lightboxOn }}" hint-placeholder-val="{{ false }}">
     <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:90;background:rgba(20,32,30,.78);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px)">
       <div style="position:relative;width:min(1000px,100%);max-height:100%;display:flex;flex-direction:column;gap:16px;align-items:center">
@@ -916,10 +1188,28 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ momentLbOn }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeMomentLb }}" style="position:fixed;inset:0;z-index:96;background:rgba(18,34,32,.85);backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,50px)">
+      <div onClick="{{ stopProp }}" style="position:relative;width:min(1080px,100%);max-height:100%;display:flex;flex-direction:column;gap:16px;align-items:center">
+        <div style="position:relative;width:100%;aspect-ratio:16/10;border-radius:clamp(28px,3.4vw,42px);overflow:hidden;background:#000;box-shadow:0 40px 80px rgba(0,0,0,.65)">
+          <img src="{{ lbMomentImg }}" alt="{{ lbMomentTitle }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;width:100%;max-width:760px;padding:12px 14px 12px 24px;border-radius:9999px;background:rgba(246,241,233,.94);box-shadow:0 10px 30px rgba(0,0,0,.35)">
+          <span style="flex:1;min-width:0;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#1F3A38;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ lbMomentTitle }}</span>
+          <button type="button" onClick="{{ prevMoment }}" aria-label="Previous" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#EFE7D9;color:#1F3A38;font-size:16px;font-weight:700;box-shadow:inset 5px 5px 10px #e2d8c8,inset -5px -5px 10px #fff">←</button>
+          <button type="button" onClick="{{ nextMoment }}" aria-label="Next" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:#EFE7D9;color:#1F3A38;font-size:16px;font-weight:700;box-shadow:inset 5px 5px 10px #e2d8c8,inset -5px -5px 10px #fff">→</button>
+          <button type="button" onClick="{{ closeMomentLb }}" aria-label="Close" style="width:44px;height:44px;border:0;cursor:pointer;border-radius:9999px;background:linear-gradient(140deg,#2C534F,#17322F);color:#F6F1E9;font-size:16px;font-weight:700">✕</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;subtle&quot;,&quot;off&quot;],&quot;default&quot;:&quot;full&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;collectionsAsTabs&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
 const PHOTO = {
+  showroom: 'assets/Haven-Furniture-Mart-Showroom.webp',
+  showroomNight: 'assets/Haven-Furniture-Mart-Showroom-Night.webp',
   sofaBlue: 'assets/sofa-embroidery-blue.webp',
   sofaGrey: 'assets/sofa-embroidery-grey.webp',
   sofaClassic: 'assets/sofa-classic-wood.webp',
@@ -949,21 +1239,64 @@ const PIECES = [
 ];
 
 const GALLERY = [
-  { src: PHOTO.sofaClassic, caption: 'Classic sofa set, showroom floor', span: 2 },
-  { src: PHOTO.sofaBlue, caption: 'Embroidered royal sofa' },
-  { src: PHOTO.bedGreen, caption: 'Velvet bed commission' },
-  { src: PHOTO.showcase, caption: 'Lit glass showcase' },
-  { src: PHOTO.diningMarble, caption: 'Marble dining, eight seats', span: 2 },
-  { src: PHOTO.bedCarved, caption: 'Carved four-post bed' },
-  { src: PHOTO.diningIvory, caption: 'Ivory carved dining set' },
-  { src: PHOTO.sofaGrey, caption: 'Floral embroidery three-seater' },
-  { src: PHOTO.shoeBox, caption: 'Minimal shoe cabinet' }
+  { src: PHOTO.sofaBlue, caption: 'Embroidered Royal Blue Velvet Sofa', span: 2 },
+  { src: PHOTO.bedGreen, caption: 'Channel-Tufted Emerald Bed & Bench' },
+  { src: PHOTO.showcase, caption: 'Lit Glass Display Showcase' },
+  { src: PHOTO.diningMarble, caption: '8-Seater Italian Marble Dining Table', span: 2 },
+  { src: PHOTO.sofaClassic, caption: 'Classic Teakwood Carved Sofa Suite' },
+  { src: PHOTO.bedCarved, caption: 'Gold-Detailed Carved 4-Post Bed' },
+  { src: PHOTO.diningIvory, caption: 'Pearl Ivory Carved Dining Set' },
+  { src: PHOTO.sofaGrey, caption: 'Floral Embroidery Three-Seater' },
+  { src: PHOTO.shoeBox, caption: 'Matte Obsidian Bespoke Shoe Credenza' }
 ];
 
 const TESTIMONIALS = [
   { quote: 'We measured, they drew, and the wardrobe fits the alcove like it was always there. Nothing off a shelf would have worked.', name: 'Nusrat Jahan', meta: 'Khulshi, Chattogram · Bedroom commission' },
   { quote: 'The consultation was free and genuinely useful. They talked us out of a bigger sofa and they were right.', name: 'Rezaul Karim', meta: 'Halishahar, Chattogram · Living room' },
   { quote: 'Delivery and installation on the same day, and the finish matched the sample exactly. Worth the wait.', name: 'Farhana Akter', meta: 'Nasirabad, Chattogram · Dining set' }
+];
+
+const MOMENTS = [
+  {
+    id: 1,
+    img: 'assets/heaven-moment-dignitary-award.webp',
+    tag: '1st Prize Crest · BFIOA 2024',
+    title: '13th Chattogram Furniture Fair 2024 · 1st Prize Award',
+    shortTitle: '1st Prize 2024',
+    desc: 'Founder Abul Kalam Bhuiyan receiving the prestigious 1st prize crest and industry honor from senior police dignitaries and BFIOA leaders.'
+  },
+  {
+    id: 2,
+    img: 'assets/heaven-moment-award-fair.webp',
+    tag: 'National Fair Exhibition',
+    title: 'Excellence & 2nd Prize at 13th Chattogram Furniture Expo',
+    shortTitle: 'Fair Award 2024',
+    desc: 'Heaven Furniture Mart team celebrating grand awards and receiving widespread appreciation from thousands of homeowners at the official fair.'
+  },
+  {
+    id: 3,
+    img: 'assets/heaven-moment-executive-team.webp',
+    tag: 'Design & Leadership',
+    title: 'Executive Suite & Master Craftsmanship Team',
+    shortTitle: 'Executive Team',
+    desc: 'Founder Abul Kalam Bhuiyan with core master craftsmen and interior specialists in our handcrafted royal bespoke lounge.'
+  },
+  {
+    id: 4,
+    img: 'assets/heaven-moment-pavilion-entrance.webp',
+    tag: 'Flagship Pavilion',
+    title: 'Heaven Furniture Mart Grand Pavilion Experience',
+    shortTitle: 'Grand Pavilion',
+    desc: 'Our showroom artisans welcoming architects, interior designers, and homeowners to the flagship exhibition pavilion.'
+  },
+  {
+    id: 5,
+    img: 'assets/heaven-moment-art-competition.webp',
+    tag: 'Community Initiative',
+    title: 'Youth Art & Creative Design Scholarship Sponsorship',
+    shortTitle: 'Art Scholarship',
+    desc: 'Sponsoring and presenting the 2nd prize award scholarship at the "Tuler Achore Amar Ghor" youth creative art contest in Chattogram.'
+  }
 ];
 
 const FAQS = [
@@ -975,19 +1308,209 @@ const FAQS = [
   { q: 'What do you make besides living room furniture?', a: 'Bedroom (beds, wardrobes, dressing and bedside tables), dining (tables, chairs, cabinets), office and study (executive tables, bookshelves, workstations), and fully custom work for any room.' }
 ];
 
-const FINISHES = {
-  sofa: [
-    { name: 'Ivory Linen', base: '#EDE4D6', note: 'Light, calm, easy to live with' },
-    { name: 'Warm Sand', base: '#D8C3A5', note: 'Our most requested shade' },
-    { name: 'Olive Velvet', base: '#7D8471', note: 'Deep tone, soft pile' },
-    { name: 'Charcoal Weave', base: '#3E3D3B', note: 'Grounding, low maintenance' }
-  ],
-  table: [
-    { name: 'Burma Teak', base: '#B5793C', note: 'Golden grain, ages beautifully' },
-    { name: 'Walnut', base: '#6B4429', note: 'Dark, dense, formal' },
-    { name: 'Natural Oak', base: '#C9A177', note: 'Open grain, light rooms' },
-    { name: 'Mahogany', base: '#7B3F2E', note: 'Warm red undertone' }
-  ]
+const BESPOKE_STUDIO = {
+  living: {
+    label: 'Living Suite',
+    archetype: 'Handcrafted Luxury Sofa',
+    items: [
+      {
+        name: 'Royal Gilded & Blue Velvet',
+        badge: 'Masterpiece Commission',
+        img: PHOTO.sofaBlue,
+        desc: 'Hand-carved gold leaf frame with embroidered royal blue velvet & 45D orthopedic core.',
+        wood: '100% Seasoned Burma Teak',
+        upholstery: 'Belgian Royal Velvet (Stain-Resistant)',
+        craft: 'Hand-embroidered gold motifs, mortise & tenon joinery',
+        swatchGrad: 'linear-gradient(135deg,#1C3352 0%,#0F1E33 100%)',
+        hotspots: [
+          { top: '16%', left: '50%', label: 'Carved Crown', desc: 'Hand-chiseled crest with genuine 24k gold leafing' },
+          { top: '56%', left: '50%', label: '45D Comfort Core', desc: 'High-resilience foam wrapped in plush velvet' },
+          { top: '84%', left: '22%', label: 'Solid Teak Base', desc: 'Kiln-dried seasoned teak frame, 10-year warranty' }
+        ]
+      },
+      {
+        name: 'Classic Teak & Brocade',
+        badge: 'Heritage Collection',
+        img: PHOTO.sofaClassic,
+        desc: 'Solid Chittagong Teak with traditional floral carving, ivory damask upholstery, and matching tea table.',
+        wood: 'Chittagong Teak Wood',
+        upholstery: 'Ivory Damask Weave',
+        craft: 'Hand-rubbed natural PU polish, continuous grain matching',
+        swatchGrad: 'linear-gradient(135deg,#C49A45 0%,#7A4F23 100%)',
+        hotspots: [
+          { top: '15%', left: '50%', label: 'Teak Floral Arch', desc: 'Monolithic carved headrest from aged seasoned timber' },
+          { top: '54%', left: '74%', label: 'Curved Scroll Arm', desc: 'Ergonomic solid wood profile with satin gloss' },
+          { top: '78%', left: '30%', label: 'Heavy Reinforcement', desc: 'Corner-blocked hardwood subframe for generational strength' }
+        ]
+      },
+      {
+        name: 'Imperial Slate & Silver',
+        badge: 'Modern Classical',
+        img: PHOTO.sofaGrey,
+        desc: 'Silver-leaf hardwood framing with deep diamond button tufting and slate grey velvet cushioning.',
+        wood: 'Seasoned Hardwood & Silver Foil',
+        upholstery: 'Imported Slate Grey Velvet',
+        craft: 'Master needlework, hand-set crystal button tufting',
+        swatchGrad: 'linear-gradient(135deg,#7A8494 0%,#3B4452 100%)',
+        hotspots: [
+          { top: '20%', left: '50%', label: 'Silver Leaf Accents', desc: 'Artisanal silver foil gilding with clear protective coat' },
+          { top: '50%', left: '46%', label: 'Diamond Tufting', desc: 'Deep-set tufts for enduring contour and back comfort' },
+          { top: '74%', left: '80%', label: 'Custom Sizing', desc: 'Built precisely to your room dimensions and seating layout' }
+        ]
+      }
+    ]
+  },
+  bedroom: {
+    label: 'Master Suite',
+    archetype: 'Custom Luxury Bed',
+    items: [
+      {
+        name: 'Emerald Fluted & Bench',
+        badge: 'Contemporary Luxe',
+        img: PHOTO.bedGreen,
+        desc: 'Architectural channel-tufted headboard with integrated foot bench and acoustic plush padding.',
+        wood: 'Solid Hardwood & Teak Slats',
+        upholstery: 'Emerald Velvet / Belgian Bouclé',
+        craft: 'Zero-squeak internal steel locking system, custom headboard height',
+        swatchGrad: 'linear-gradient(135deg,#2F5C48 0%,#153326 100%)',
+        hotspots: [
+          { top: '22%', left: '50%', label: 'Channel Headboard', desc: 'Vertical fluted cushioning with acoustic sound dampening' },
+          { top: '68%', left: '50%', label: 'Integrated Foot Bench', desc: 'Upholstered end-bench for morning styling & relaxation' },
+          { top: '82%', left: '80%', label: 'Engineered Teak Slats', desc: 'Heavy-duty solid wood foundation supporting up to 500kg' }
+        ]
+      },
+      {
+        name: 'Carved Imperial Teal',
+        badge: 'Royal Heritage Bed',
+        img: PHOTO.bedCarved,
+        desc: 'Majestic four-poster silhouette with intricate floral cresting, gold highlights and teal velvet backrest.',
+        wood: '100% Solid Seasoned Teak',
+        upholstery: 'Rich Teal Velvet',
+        craft: 'Master chisel carving, turned columns, gold leaf finish',
+        swatchGrad: 'linear-gradient(135deg,#2E7485 0%,#13404C 100%)',
+        hotspots: [
+          { top: '14%', left: '50%', label: 'Imperial Crest', desc: 'Hand-carved royal crest chiseled by master sculptors' },
+          { top: '48%', left: '50%', label: 'Padded Backrest', desc: 'Ergonomic upholstered support for reading in bed' },
+          { top: '78%', left: '18%', label: 'Turned Teak Posts', desc: 'Monolithic solid wood pillars with brass accented caps' }
+        ]
+      }
+    ]
+  },
+  dining: {
+    label: 'Dining Suite',
+    archetype: 'Architectural Dining',
+    items: [
+      {
+        name: 'Italian Marble & Teak',
+        badge: 'Grand Statement',
+        img: PHOTO.diningMarble,
+        desc: 'Natural veined Italian marble top on hand-sculpted solid teak base with 8 studded leather chairs.',
+        wood: 'Solid Burma Teak Pedestal',
+        upholstery: 'Top-Grain Leather / Stain-Sealed Stone',
+        craft: 'Seamless stone edging, heat-resistant nano coating',
+        swatchGrad: 'linear-gradient(135deg,#6D2638 0%,#34101A 100%)',
+        hotspots: [
+          { top: '44%', left: '50%', label: 'Polished Marble Top', desc: 'Natural Italian marble sealed against heat and spills' },
+          { top: '36%', left: '22%', label: 'Studded Leather Seats', desc: 'High-back ergonomic dining chairs with brass studding' },
+          { top: '76%', left: '76%', label: 'Solid Teak Pedestal', desc: 'Heavyweight sculpted base engineered for zero wobble' }
+        ]
+      },
+      {
+        name: 'Ivory Royal Carved 6-Seat',
+        badge: 'Classic Elegance',
+        img: PHOTO.diningIvory,
+        desc: 'Pearl lacquer finish with gold leaf accents, bevelled crystal top and floral tapestry dining chairs.',
+        wood: 'Seasoned Hardwood & Teak',
+        upholstery: 'Royal Floral Jacquard',
+        craft: 'Multi-coat baked lacquer, hand-embellished cabriole legs',
+        swatchGrad: 'linear-gradient(135deg,#EFE8DC 0%,#B5A48F 100%)',
+        hotspots: [
+          { top: '46%', left: '50%', label: 'Bevelled Crystal Glass', desc: '12mm tempered protective glass over carved apron' },
+          { top: '32%', left: '76%', label: 'Royal Crest Backrest', desc: 'Intricate pierced-carving with gold leaf highlights' },
+          { top: '80%', left: '24%', label: 'Fluted Cabriole Legs', desc: 'Graceful curved legs carved from solid seasoned timber' }
+        ]
+      }
+    ]
+  },
+  cabinet: {
+    label: 'Credenza & Storage',
+    archetype: 'Custom Architectural Storage',
+    items: [
+      {
+        name: 'Fluted Black & Brass',
+        badge: 'Modern Statement',
+        img: PHOTO.shoeBox,
+        desc: 'Matte black fluted console with open warm teak display bays, brushed brass pulls, and soft-close damping.',
+        wood: 'Solid Teak & High-Density Marine Plywood',
+        upholstery: 'Matte Satin PU & Brushed Gold Brass',
+        craft: 'CNC precision vertical fluting, Blum German soft-close hardware',
+        swatchGrad: 'linear-gradient(135deg,#2B2B2B 0%,#111111 100%)',
+        hotspots: [
+          { top: '32%', left: '30%', label: 'Milled Fluted Doors', desc: 'Precision CNC fluting with seamless push-to-open latch' },
+          { top: '40%', left: '72%', label: 'Accent Teak Cubbies', desc: 'Warm wood niches designed for decor and daily essentials' },
+          { top: '86%', left: '50%', label: 'Brushed Brass Plinth', desc: 'Solid brass base with moisture-resistant floor clearance' }
+        ]
+      },
+      {
+        name: 'Lit Heritage Showcase',
+        badge: 'Heirloom Display',
+        img: PHOTO.showcase,
+        desc: 'Cream lacquer showcase with recessed warm LED channels, carved classical pediment, and bottom storage drawers.',
+        wood: 'Seasoned Teak Frame',
+        upholstery: 'Tempered Crystal Glass & Satin Cream PU',
+        craft: 'Integrated concealed micro-wiring, dust-proof magnetic seals',
+        swatchGrad: 'linear-gradient(135deg,#F5EFE6 0%,#CEBA9F 100%)',
+        hotspots: [
+          { top: '15%', left: '50%', label: 'Hand-Carved Pediment', desc: 'Artisan classical cornice with delicate gold lining' },
+          { top: '48%', left: '50%', label: 'Warm LED Halo', desc: 'Concealed 3000K LED illumination for trophies & crystal' },
+          { top: '82%', left: '50%', label: 'Silent Drawer Base', desc: 'Full-extension heavy duty soft-close storage drawers' }
+        ]
+      }
+    ]
+  }
+};
+
+const BESPOKE_THEMES = {
+  bedroom: {
+    bg: 'linear-gradient(150deg, #163630 0%, #0E221E 60%, #122B26 100%)',
+    shadow: '16px 20px 42px rgba(0,0,0,.45), -10px -10px 24px rgba(255,255,255,.06), inset 4px 4px 8px rgba(255,255,255,.14), inset -4px -4px 8px rgba(0,0,0,.4)',
+    subText: 'rgba(210,235,230,.8)',
+    badgeBg: 'rgba(14,34,30,.88)',
+    canvasBg: '#081814',
+    btnGrad: 'linear-gradient(140deg, #24554B, #122D27)',
+    btnRgb: '18,45,39',
+    btnText: '#E2C795'
+  },
+  living: {
+    bg: 'linear-gradient(150deg, #152438 0%, #0C1624 60%, #101E30 100%)',
+    shadow: '16px 20px 42px rgba(0,0,0,.45), -10px -10px 24px rgba(255,255,255,.06), inset 4px 4px 8px rgba(255,255,255,.14), inset -4px -4px 8px rgba(0,0,0,.4)',
+    subText: 'rgba(215,228,242,.8)',
+    badgeBg: 'rgba(12,22,36,.88)',
+    canvasBg: '#0A131F',
+    btnGrad: 'linear-gradient(140deg, #23436B, #0F2035)',
+    btnRgb: '15,32,53',
+    btnText: '#E2C795'
+  },
+  dining: {
+    bg: 'linear-gradient(150deg, #321B23 0%, #1C0D13 60%, #26121A 100%)',
+    shadow: '16px 20px 42px rgba(0,0,0,.45), -10px -10px 24px rgba(255,255,255,.06), inset 4px 4px 8px rgba(255,255,255,.14), inset -4px -4px 8px rgba(0,0,0,.4)',
+    subText: 'rgba(240,215,224,.8)',
+    badgeBg: 'rgba(28,13,19,.88)',
+    canvasBg: '#16080E',
+    btnGrad: 'linear-gradient(140deg, #582635, #2B0F19)',
+    btnRgb: '43,15,25',
+    btnText: '#E2C795'
+  },
+  cabinet: {
+    bg: 'linear-gradient(150deg, #22201E 0%, #121110 60%, #1A1816 100%)',
+    shadow: '16px 20px 42px rgba(0,0,0,.45), -10px -10px 24px rgba(255,255,255,.06), inset 4px 4px 8px rgba(255,255,255,.14), inset -4px -4px 8px rgba(0,0,0,.4)',
+    subText: 'rgba(230,222,214,.8)',
+    badgeBg: 'rgba(18,17,16,.88)',
+    canvasBg: '#0E0D0C',
+    btnGrad: 'linear-gradient(140deg, #403831, #1E1A16)',
+    btnRgb: '30,26,22',
+    btnText: '#E2C795'
+  }
 };
 
 const STEPS = [
@@ -1011,9 +1534,14 @@ class Component extends DCLogic {
     menuOpen: false,
     cat: 'All',
     lightbox: -1,
+    showroomLb: false,
+    heroImgIndex: 0,
+    momentIndex: 0,
+    momentHover: false,
+    momentLb: -1,
     tIndex: 0,
     faq: 0,
-    piece: 'sofa',
+    piece: 'bedroom',
     finish: 0,
     step: 0,
     done: false,
@@ -1027,7 +1555,7 @@ class Component extends DCLogic {
     this._onResize = () => this.setState({ vw: window.innerWidth });
     this._onScroll = () => {
       const s = window.scrollY > 620;
-      const ids = ['top', 'about', 'why', 'collections', 'bespoke', 'process', 'services', 'gallery', 'proof', 'story', 'faq', 'quote'];
+      const ids = ['top', 'about', 'why', 'collections', 'bespoke', 'moments', 'process', 'services', 'showroom', 'gallery', 'proof', 'story', 'faq', 'quote', 'location'];
       let active = ids[0];
       for (const id of ids) {
         const el = document.getElementById(id);
@@ -1039,8 +1567,17 @@ class Component extends DCLogic {
       if (Object.keys(next).length) this.setState(next);
     };
     this._onKey = (e) => {
+      if (e.key === 'Escape') {
+        if (this.state.lightbox >= 0) this.setState({ lightbox: -1 });
+        if (this.state.showroomLb) this.setState({ showroomLb: false });
+        if (this.state.momentLb >= 0) this.setState({ momentLb: -1 });
+      }
+      if (this.state.momentLb >= 0) {
+        if (e.key === 'ArrowRight') this.setState((s) => ({ momentLb: (s.momentLb + 1) % MOMENTS.length, momentIndex: (s.momentLb + 1) % MOMENTS.length }));
+        if (e.key === 'ArrowLeft') this.setState((s) => ({ momentLb: (s.momentLb - 1 + MOMENTS.length) % MOMENTS.length, momentIndex: (s.momentLb - 1 + MOMENTS.length) % MOMENTS.length }));
+        return;
+      }
       if (this.state.lightbox < 0) return;
-      if (e.key === 'Escape') this.setState({ lightbox: -1 });
       if (e.key === 'ArrowRight') this.step(1);
       if (e.key === 'ArrowLeft') this.step(-1);
     };
@@ -1091,6 +1628,18 @@ class Component extends DCLogic {
       tick();
     }
 
+    // Auto-crossfade Hero showroom image between day and illuminated night views every 4.5s
+    this._heroTimer = setInterval(() => {
+      this.setState((s) => ({ heroImgIndex: (s.heroImgIndex + 1) % 2 }));
+    }, 4500);
+
+    // Auto-slide moments carousel every 3.8s
+    this._momentTimer = setInterval(() => {
+      if (!this.state.momentHover && this.state.momentLb < 0) {
+        this.setState((s) => ({ momentIndex: (s.momentIndex + 1) % MOMENTS.length }));
+      }
+    }, 3800);
+
     this._auto = setInterval(() => {
       if (this.state.lightbox < 0) this.setState((s) => ({ tIndex: (s.tIndex + 1) % TESTIMONIALS.length }));
     }, 7000);
@@ -1101,6 +1650,8 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    clearInterval(this._heroTimer);
+    clearInterval(this._momentTimer);
     clearInterval(this._scanTimer);
     clearTimeout(this._scanStop);
     window.removeEventListener('resize', this._onResize);
@@ -1131,8 +1682,9 @@ class Component extends DCLogic {
     const wide = s.vw >= 1120;
     const tabsOn = this.props.collectionsAsTabs !== false;
     const cats = ['All', 'Living', 'Bedroom', 'Dining', 'Office', 'Bespoke'];
-    const finishes = FINISHES[s.piece];
-    const fin = finishes[Math.min(s.finish, finishes.length - 1)];
+    const bespokeCat = BESPOKE_STUDIO[s.piece] || BESPOKE_STUDIO.living;
+    const bespokeItem = bespokeCat.items[Math.min(s.finish, bespokeCat.items.length - 1)] || bespokeCat.items[0];
+    const bespokeTheme = BESPOKE_THEMES[s.piece] || BESPOKE_THEMES.living;
     const stepDef = STEPS[s.step];
 
     const photoLayer = (src) => ({
@@ -1150,17 +1702,18 @@ class Component extends DCLogic {
 
     const navLinks = [
       { label: 'About', href: '#about' },
-      { label: 'Why Heaven', href: '#why' },
+      { label: 'Why Us', href: '#why' },
       { label: 'Collections', href: '#collections' },
       { label: 'Bespoke', href: '#bespoke' },
       { label: 'Services', href: '#services' },
-      { label: 'Showroom', href: '#gallery' },
+      { label: 'Showroom', href: '#showroom' },
+      { label: 'Work', href: '#gallery' },
       { label: 'FAQ', href: '#faq' }
     ].map((l) => {
       const on = l.href.slice(1) === s.active;
       return Object.assign({}, l, {
         style: {
-          padding: '10px 18px', borderRadius: '22px', fontSize: '13.5px',
+          padding: '8px clamp(10px, 1.1vw, 15px)', borderRadius: '20px', fontSize: '13px',
           fontWeight: on ? 700 : 600, whiteSpace: 'nowrap',
           color: on ? '#E2C795' : '#2C241D',
           transform: on ? 'translateY(-2px)' : 'none',
@@ -1173,9 +1726,42 @@ class Component extends DCLogic {
             ? '8px 8px 18px rgba(31,58,56,.35),-4px -4px 10px rgba(255,255,255,.6),inset 3px 3px 6px rgba(255,255,255,.22),inset -3px -3px 6px rgba(0,0,0,.25)'
             : '5px 5px 12px rgba(160,140,110,.18),-3px -3px 8px rgba(255,255,255,.9),inset 2px 2px 4px rgba(255,255,255,.9),inset -2px -2px 4px rgba(169,127,60,.08)',
           textDecoration: 'none'
-        }
+        },
+        styleHover: on
+          ? 'transform:translateY(-3px);color:#FFFFFF;filter:brightness(1.15);box-shadow:10px 10px 22px rgba(31,58,56,.45),-4px -4px 12px rgba(255,255,255,.6)'
+          : 'transform:translateY(-3px);color:#17322F;background:rgba(255,255,255,.98);box-shadow:8px 8px 18px rgba(160,140,110,.28),-5px -5px 12px rgba(255,255,255,1),inset 3px 3px 6px rgba(255,255,255,1),inset -3px -3px 6px rgba(169,127,60,.14)'
       });
     });
+
+    const quoteOn = s.active === 'quote';
+    const quoteBtnStyle = {
+      height: '52px', padding: '0 24px', border: 0, cursor: 'pointer', borderRadius: '20px',
+      whiteSpace: 'nowrap', flexShrink: 0,
+      fontSize: '13.5px', fontWeight: 700, letterSpacing: '.04em',
+      transition: 'all .25s cubic-bezier(.16,1,.3,1)',
+      background: quoteOn
+        ? 'linear-gradient(140deg,#E2C795,#A97F3C)'
+        : 'linear-gradient(140deg,#2C534F,#17322F)',
+      color: quoteOn ? '#17322F' : '#F6F1E9',
+      transform: quoteOn ? 'translateY(-2px)' : 'none',
+      boxShadow: quoteOn
+        ? '12px 14px 28px rgba(169,127,60,.45),-6px -6px 14px rgba(255,255,255,.6),inset 3px 3px 6px rgba(255,255,255,.6),inset -3px -3px 6px rgba(0,0,0,.18)'
+        : '11px 11px 22px rgba(31,58,56,.30),-7px -7px 15px rgba(255,255,255,.45),inset 4px 4px 8px rgba(255,255,255,.20),inset -4px -4px 8px rgba(0,0,0,.16)'
+    };
+    const quoteBtnStyleHover = quoteOn
+      ? 'transform:translateY(-3px);filter:brightness(1.1);box-shadow:14px 16px 32px rgba(169,127,60,.55),-6px -6px 14px rgba(255,255,255,.7)'
+      : 'transform:translateY(-3px);background:linear-gradient(140deg,#E2C795,#A97F3C);color:#17322F;box-shadow:14px 14px 28px rgba(31,58,56,.42);';
+    const quoteBtnStyleMobile = {
+      marginTop: '4px', height: '58px', border: 0, cursor: 'pointer', borderRadius: '22px',
+      fontSize: '15px', fontWeight: 700, letterSpacing: '.04em',
+      background: quoteOn
+        ? 'linear-gradient(140deg,#E2C795,#A97F3C)'
+        : 'linear-gradient(140deg,#2C534F,#17322F)',
+      color: quoteOn ? '#17322F' : '#F6F1E9',
+      boxShadow: quoteOn
+        ? '12px 14px 28px rgba(169,127,60,.45),-6px -6px 14px rgba(255,255,255,.6),inset 3px 3px 6px rgba(255,255,255,.6),inset -3px -3px 6px rgba(0,0,0,.18)'
+        : '11px 11px 22px rgba(31,58,56,.30),-7px -7px 15px rgba(255,255,255,.45),inset 4px 4px 8px rgba(255,255,255,.20),inset -4px -4px 8px rgba(0,0,0,.16)'
+    };
 
     const tabBtn = (c) => {
       const on = s.cat === c;
@@ -1202,17 +1788,26 @@ class Component extends DCLogic {
 
     const pieceBtn = (key, label) => {
       const on = s.piece === key;
+      const theme = BESPOKE_THEMES[key] || BESPOKE_THEMES.bedroom;
       return {
-        height: '54px', padding: '0 26px',
-        border: on ? '1.5px solid rgba(255,255,255,.6)' : '0',
-        cursor: 'pointer', borderRadius: '20px',
-        fontSize: '14px', fontWeight: 700, transition: 'all .25s cubic-bezier(.16,1,.3,1)',
-        background: on ? 'linear-gradient(140deg,#E2C795,#A97F3C)' : 'linear-gradient(140deg,#2C534F,#17322F)',
-        color: on ? '#17322F' : '#F6F1E9',
-        transform: on ? 'translateY(-2px)' : 'none',
-        boxShadow: on
-          ? '10px 10px 22px rgba(0,0,0,.35),inset 3px 3px 6px rgba(255,255,255,.45),inset -3px -3px 6px rgba(0,0,0,.2)'
-          : '10px 10px 20px rgba(31,58,56,.32),-5px -5px 12px rgba(255,255,255,.15),inset 3px 3px 6px rgba(255,255,255,.22),inset -3px -3px 6px rgba(0,0,0,.22)'
+        style: {
+          padding: '10px 18px', borderRadius: '22px', fontSize: '13.5px',
+          fontWeight: on ? 700 : 600, whiteSpace: 'nowrap',
+          border: 0, cursor: 'pointer',
+          color: on ? theme.btnText : '#2C241D',
+          transform: on ? 'translateY(-2px)' : 'none',
+          background: on
+            ? theme.btnGrad
+            : 'linear-gradient(150deg,rgba(255,255,255,.9) 15%,rgba(244,236,224,.75) 100%)',
+          backdropFilter: 'blur(16px)',
+          transition: 'all .25s cubic-bezier(.16,1,.3,1)',
+          boxShadow: on
+            ? '8px 8px 18px rgba(' + theme.btnRgb + ',.55),-4px -4px 10px rgba(255,255,255,.12),inset 3px 3px 6px rgba(255,255,255,.24),inset -3px -3px 6px rgba(0,0,0,.4)'
+            : '5px 5px 12px rgba(0,0,0,.25),-3px -3px 8px rgba(255,255,255,.1),inset 2px 2px 4px rgba(255,255,255,.95),inset -2px -2px 4px rgba(169,127,60,.12)'
+        },
+        styleHover: on
+          ? 'transform:translateY(-3px);color:#FFFFFF;filter:brightness(1.15);box-shadow:10px 10px 22px rgba(' + theme.btnRgb + ',.65),-4px -4px 12px rgba(255,255,255,.2)'
+          : 'transform:translateY(-3px);color:#17322F;background:rgba(255,255,255,1);box-shadow:8px 8px 18px rgba(0,0,0,.35),-4px -4px 10px rgba(255,255,255,.18),inset 2px 2px 4px rgba(255,255,255,1),inset -2px -2px 4px rgba(169,127,60,.14)'
       };
     };
 
@@ -1220,15 +1815,16 @@ class Component extends DCLogic {
       const on = s.answers[stepDef.key] === label;
       return {
         minHeight: '56px', padding: '0 24px',
-        border: on ? '1.5px solid rgba(255,255,255,.6)' : '0',
+        border: on ? '1.5px solid rgba(255,255,255,.7)' : '1px solid rgba(226,199,149,.22)',
         cursor: 'pointer', borderRadius: '20px',
         fontSize: '14.5px', fontWeight: on ? 700 : 600, transition: 'all .25s cubic-bezier(.16,1,.3,1)',
-        background: on ? 'linear-gradient(140deg,#E2C795,#A97F3C)' : 'linear-gradient(140deg,#2C534F,#17322F)',
+        background: on ? 'linear-gradient(140deg,#E2C795,#A97F3C)' : 'linear-gradient(145deg,rgba(44,85,79,.88),rgba(20,48,45,.92))',
+        backdropFilter: 'blur(10px)',
         color: on ? '#17322F' : '#F6F1E9',
         transform: on ? 'translateY(-2px)' : 'none',
         boxShadow: on
           ? '10px 10px 22px rgba(0,0,0,.35),inset 3px 3px 6px rgba(255,255,255,.45),inset -3px -3px 6px rgba(0,0,0,.2)'
-          : '10px 10px 20px rgba(31,58,56,.32),-5px -5px 12px rgba(255,255,255,.15),inset 3px 3px 6px rgba(255,255,255,.22),inset -3px -3px 6px rgba(0,0,0,.22)'
+          : '8px 8px 18px rgba(0,0,0,.35),-3px -3px 8px rgba(255,255,255,.1),inset 2px 2px 5px rgba(255,255,255,.18),inset -2px -2px 5px rgba(0,0,0,.3)'
       };
     };
 
@@ -1246,8 +1842,11 @@ class Component extends DCLogic {
       pillOn: s.scrolled && !s.done,
       navLinks,
       socials: [
+        { label: 'WhatsApp', fill: '#17322F', stroke: 'none', orb: 'linear-gradient(140deg,#D9BA83,#A97F3C)', path: 'M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm0 17.76c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a7.87 7.87 0 0 1-1.21-4.19c0-4.36 3.55-7.91 7.91-7.91 2.11 0 4.09.82 5.58 2.31a7.86 7.86 0 0 1 2.31 5.58c0 4.36-3.55 7.92-7.9 7.92zm4.33-5.93c-.24-.12-1.4-.69-1.62-.77-.22-.08-.37-.12-.53.12-.16.24-.61.77-.75.93-.14.16-.28.18-.51.06-.24-.12-1-.37-1.91-1.18-.7-.63-1.18-1.4-1.32-1.64-.14-.24-.02-.37.1-.49.11-.11.24-.28.37-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.43-.06-.12-.53-1.28-.73-1.76-.19-.46-.39-.4-.53-.41h-.46c-.16 0-.41.06-.63.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.02.4 1.38.52.58.18 1.11.16 1.53.1.47-.07 1.4-.57 1.6-1.13.2-.55.2-1.02.14-1.13-.06-.11-.2-.17-.43-.29z', href: 'https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart' },
         { label: 'Facebook', fill: '#17322F', stroke: 'none', orb: 'linear-gradient(140deg,#D9BA83,#A97F3C)', path: 'M14.6 8.4h2.2V5.3h-2.6c-2.6 0-4.3 1.7-4.3 4.4v1.6H7.6v3.2h2.3V21h3.4v-6.5h2.4l.5-3.2h-2.9V9.8c0-.9.4-1.4 1.3-1.4z', href: 'https://facebook.com/HeavenFurnitureMart' },
         { label: 'Instagram', fill: 'none', stroke: '#17322F', orb: 'linear-gradient(140deg,#E2C795,#A97F3C)', path: 'M8.4 3.5h7.2a4.9 4.9 0 0 1 4.9 4.9v7.2a4.9 4.9 0 0 1-4.9 4.9H8.4a4.9 4.9 0 0 1-4.9-4.9V8.4a4.9 4.9 0 0 1 4.9-4.9zM12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2zM16.9 7.2h.01', href: 'https://instagram.com/heaven_furniture_ltd' },
+        { label: 'LinkedIn', fill: '#17322F', stroke: 'none', orb: 'linear-gradient(140deg,#D9BA83,#A97F3C)', path: 'M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z', href: 'https://www.linkedin.com/company/heaven-furniture-mart/' },
+        { label: 'Pinterest', fill: '#17322F', stroke: 'none', orb: 'linear-gradient(140deg,#E2C795,#A97F3C)', path: 'M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.16-1.99.03-2.85.18-.77 1.16-4.92 1.16-4.92s-.3-.6-.3-1.48c0-1.39.81-2.43 1.81-2.43.85 0 1.27.64 1.27 1.41 0 .86-.55 2.14-.83 3.33-.24 1 .5 1.81 1.48 1.81 1.78 0 3.15-1.88 3.15-4.58 0-2.4-1.72-4.07-4.18-4.07-2.85 0-4.52 2.14-4.52 4.34 0 .86.33 1.78.74 2.28.08.1.09.19.07.29-.08.33-.26 1.05-.29 1.2-.05.19-.15.23-.35.14-1.31-.61-2.13-2.52-2.13-4.06 0-3.3 2.4-6.34 6.93-6.34 3.64 0 6.47 2.6 6.47 6.07 0 3.62-2.28 6.54-5.45 6.54-1.06 0-2.07-.55-2.41-1.2l-.66 2.51c-.24.92-.88 2.07-1.31 2.78 1 .31 2.06.48 3.16.48 5.52 0 10-4.48 10-10S17.52 2 12 2z', href: 'https://www.pinterest.com/heavenfurnituremart/' },
         { label: 'YouTube', fill: '#17322F', stroke: 'none', orb: 'linear-gradient(140deg,#D9BA83,#A97F3C)', path: 'M21 8.6a3 3 0 0 0-2.1-2.1C17.1 6 12 6 12 6s-5.1 0-6.9.5A3 3 0 0 0 3 8.6C2.5 10.4 2.5 12 2.5 12s0 1.6.5 3.4a3 3 0 0 0 2.1 2.1C6.9 18 12 18 12 18s5.1 0 6.9-.5a3 3 0 0 0 2.1-2.1c.5-1.8.5-3.4.5-3.4s0-1.6-.5-3.4zM10.4 15V9l5.2 3-5.2 3z', href: 'https://youtube.com/@HeavenFurnitureMart' }
       ],
 
@@ -1310,40 +1909,120 @@ class Component extends DCLogic {
 
       tabsOn,
       tabs: cats.map((c) => ({ label: c, style: tabBtn(c), onClick: () => this.setState({ cat: c }) })),
-      shownPieces: (tabsOn ? filtered : PIECES.slice(0, 6)).map((p) => ({
-        cat: p.cat, title: p.title, body: p.body, photo: photoLayer(p.img)
-      })),
+      shownPieces: (tabsOn ? filtered : PIECES.slice(0, 6)).map((p) => {
+        const galIdx = GALLERY.findIndex((g) => g.src === p.img);
+        return {
+          cat: p.cat, title: p.title, body: p.body, photo: photoLayer(p.img),
+          onClick: () => {
+            if (galIdx >= 0) this.setState({ lightbox: galIdx });
+            else this.setState({ lightbox: 0 });
+          }
+        };
+      }),
 
-      isSofa: s.piece === 'sofa',
-      isTable: s.piece === 'table',
+      goBespokeQuote: () => {
+        this.setState((p) => ({
+          step: 0,
+          answers: Object.assign({}, p.answers, { room: bespokeCat.label, style: 'Bespoke / Custom' })
+        }));
+        this.scrollTo('quote');
+      },
+      inspectPhoto: () => {
+        const gIdx = GALLERY.findIndex((g) => g.src === bespokeItem.img);
+        if (gIdx >= 0) this.setState({ lightbox: gIdx });
+      },
       pieceBtns: [
-        { label: 'Lounge sofa', style: pieceBtn('sofa', 'sofa'), onClick: () => this.setState({ piece: 'sofa', finish: 0 }) },
-        { label: 'Dining table', style: pieceBtn('table', 'table'), onClick: () => this.setState({ piece: 'table', finish: 0 }) }
-      ],
-      finishBtns: finishes.map((f, i) => ({
-        name: f.name,
+        { key: 'bedroom', label: 'Master Suite' },
+        { key: 'living', label: 'Living Suite' },
+        { key: 'dining', label: 'Dining Suite' },
+        { key: 'cabinet', label: 'Credenza & Storage' }
+      ].map((b) => {
+        const pb = pieceBtn(b.key, b.label);
+        return {
+          label: b.label,
+          style: pb.style,
+          styleHover: pb.styleHover,
+          onClick: () => this.setState({ piece: b.key, finish: 0 })
+        };
+      }),
+      finishBtns: bespokeCat.items.map((it, i) => ({
+        name: it.name,
         onClick: () => this.setState({ finish: i }),
         style: {
-          width: '60px', height: '60px', border: i === s.finish ? '2px solid #E2C795' : '1px solid rgba(217,186,131,.25)',
-          cursor: 'pointer', borderRadius: '20px', padding: '5px',
-          transition: 'all .25s cubic-bezier(.16,1,.3,1)',
-          background: i === s.finish ? 'rgba(226,199,149,.22)' : 'rgba(0,0,0,.26)',
-          boxShadow: i === s.finish
-            ? '0 0 0 3px rgba(226,199,149,.25), 8px 8px 18px rgba(0,0,0,.35), inset 2px 2px 4px rgba(255,255,255,.18)'
-            : 'inset 4px 4px 8px rgba(0,0,0,.3), inset -3px -3px 6px rgba(255,255,255,.05)',
-          transform: i === s.finish ? 'translateY(-2px)' : 'none'
+          width: '44px', height: '44px',
+          border: i === s.finish ? '2px solid #E2C795' : '1px solid rgba(255,255,255,.25)',
+          cursor: 'pointer', borderRadius: '9999px', padding: '3px',
+          transition: 'all .22s ease',
+          background: i === s.finish ? 'rgba(226,199,149,.25)' : 'transparent',
+          boxShadow: i === s.finish ? '0 0 0 3px rgba(226,199,149,.3)' : 'none',
+          transform: i === s.finish ? 'scale(1.08)' : 'none'
         },
         dot: {
-          display: 'block', width: '100%', height: '100%', borderRadius: '15px',
-          background: 'linear-gradient(140deg,' + shade(f.base, 22) + ',' + shade(f.base, -22) + ')',
-          boxShadow: 'inset 3px 3px 6px rgba(255,255,255,.3),inset -3px -3px 6px rgba(0,0,0,.35)'
+          display: 'block', width: '100%', height: '100%', borderRadius: '9999px',
+          background: it.swatchGrad,
+          boxShadow: 'inset 1px 1px 3px rgba(255,255,255,.3), inset -1px -1px 3px rgba(0,0,0,.4)'
         }
       })),
-      finishName: fin.name,
-      finishNote: fin.note,
-      shadeBack: 'linear-gradient(150deg,' + shade(fin.base, 30) + ',' + shade(fin.base, -18) + ')',
-      shadeArm: 'linear-gradient(150deg,' + shade(fin.base, 12) + ',' + shade(fin.base, -34) + ')',
-      shadeSeat: 'linear-gradient(150deg,' + shade(fin.base, 20) + ',' + shade(fin.base, -26) + ')',
+      finishName: bespokeItem.name,
+      finishWood: bespokeItem.wood,
+      finishUpholstery: bespokeItem.upholstery,
+      finishCraft: bespokeItem.craft,
+      activePieceBadge: bespokeItem.badge,
+      activePieceTitle: bespokeItem.name,
+      activePieceSub: bespokeItem.desc,
+      bespokeCardStyle: {
+        maxWidth: '1240px', margin: '0 auto', position: 'relative',
+        borderRadius: '34px',
+        background: bespokeTheme.bg,
+        backdropFilter: 'blur(20px) saturate(1.5)',
+        padding: 'clamp(30px,4.5vw,58px)',
+        boxShadow: bespokeTheme.shadow,
+        transition: 'all .6s cubic-bezier(.16,1,.3,1)'
+      },
+      bespokeCanvasBg: bespokeTheme.canvasBg,
+      bespokeBadgeBg: bespokeTheme.badgeBg,
+      bespokeSubText: bespokeTheme.subText,
+      bespokePhotoStyle: {
+        position: 'absolute', inset: 0,
+        backgroundImage: 'url("' + bespokeItem.img + '")',
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        transition: 'all .5s cubic-bezier(.16,1,.3,1)'
+      },
+      activeHotspots: (bespokeItem.hotspots || []).map((h) => ({
+        label: h.label,
+        desc: h.desc,
+        pinWrapStyle: {
+          position: 'absolute',
+          top: h.top,
+          left: h.left,
+          transform: 'translate(-50%, -50%)',
+          zIndex: 10
+        },
+        pinBtnStyle: {
+          width: '26px', height: '26px', borderRadius: '9999px',
+          background: 'linear-gradient(135deg,#E2C795,#A97F3C)',
+          color: '#17322F', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: '0 0 0 4px rgba(226,199,149,.35), 0 4px 12px rgba(0,0,0,.5)',
+          animation: 'hotspotGlow 3s ease-in-out infinite',
+          cursor: 'pointer'
+        },
+        tooltipStyle: {
+          position: 'absolute',
+          bottom: '32px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'max-content',
+          maxWidth: '210px',
+          padding: '8px 12px',
+          borderRadius: '14px',
+          background: 'rgba(14,32,30,.94)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(226,199,149,.4)',
+          boxShadow: '0 10px 24px rgba(0,0,0,.5)',
+          pointerEvents: 'none',
+          transition: 'all .25s ease'
+        }
+      })),
 
       steps: [
         { n: '1', title: 'Talk', body: 'Free consultation at the showroom or over the phone.' },
@@ -1352,18 +2031,39 @@ class Component extends DCLogic {
         { n: '4', title: 'Install', body: 'Delivered and set up in your home by our team.' }
       ],
 
+      showroomPerks: [
+        { icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z', title: '5,000+ Sq Ft Floor', desc: 'Fully styled living, bedroom & dining model suites on display.' },
+        { icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z', title: 'Fabric & Swatch Bar', desc: '200+ Belgian velvet, Turkish jacquard & seasoned teak samples.' },
+        { icon: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2', title: '1-on-1 Consultation', desc: 'Complimentary consultation with senior interior specialists.' },
+        { icon: 'M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z', title: 'Agrabad Access Road', desc: 'Prime roadside location with dedicated customer car parking.' }
+      ],
+      scheduleDays: [
+        { day: 'Saturday', time: '9:00 AM – 9:30 PM', dayColor: '#E2C795', timeColor: '#F6F1E9', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' },
+        { day: 'Sunday', time: '9:00 AM – 9:30 PM', dayColor: '#E2C795', timeColor: '#F6F1E9', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' },
+        { day: 'Monday', time: '9:00 AM – 9:30 PM', dayColor: '#E2C795', timeColor: '#F6F1E9', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' },
+        { day: 'Tuesday', time: '9:00 AM – 9:30 PM', dayColor: '#E2C795', timeColor: '#F6F1E9', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' },
+        { day: 'Wednesday', time: '9:00 AM – 9:30 PM', dayColor: '#E2C795', timeColor: '#F6F1E9', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' },
+        { day: 'Thursday', time: '9:00 AM – 9:30 PM', dayColor: '#E2C795', timeColor: '#F6F1E9', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(255,255,255,.07);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' },
+        { day: 'Friday', time: 'Closed', dayColor: '#FFA39E', timeColor: '#FF6B6B', boxStyle: 'padding:14px 12px;border-radius:18px;background:rgba(231,76,60,.18);border:1.5px solid rgba(231,76,60,.4);box-shadow:inset 2px 2px 4px rgba(255,255,255,.08),4px 4px 12px rgba(0,0,0,.3);text-align:center' }
+      ],
+      showroomLbOn: s.showroomLb,
+      inspectShowroom: () => this.setState({ showroomLb: true }),
+      closeShowroomLb: () => this.setState({ showroomLb: false }),
+      stopProp: (e) => { if (e) e.stopPropagation(); },
+
       gallery: GALLERY.map((g, i) => ({
         caption: g.caption,
         onClick: () => this.setState({ lightbox: i }),
         photo: photoLayer(g.src),
         wrap: {
-          position: 'relative', border: 0, padding: '12px', cursor: 'pointer', overflow: 'hidden',
-          borderRadius: '34px', aspectRatio: g.span === 2 ? '16/10' : '4/3.4',
+          position: 'relative', border: 0, padding: '10px', cursor: 'pointer', overflow: 'hidden',
+          borderRadius: '32px',
+          aspectRatio: g.span === 2 ? '16/10' : (wide ? '4/5' : '4/3.2'),
           gridColumn: g.span === 2 && wide ? 'span 2' : 'auto',
           background: 'linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.82))',
           backdropFilter: 'blur(18px) saturate(1.5)',
           transition: 'transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s',
-          boxShadow: '9px 9px 18px rgba(160,140,110,.3),-7px -7px 15px rgba(255,255,255,.95),inset 4px 4px 8px rgba(255,255,255,.85),inset -4px -4px 8px rgba(169,127,60,.15)'
+          boxShadow: '10px 10px 22px rgba(160,140,110,.28),-7px -7px 15px rgba(255,255,255,.95),inset 4px 4px 8px rgba(255,255,255,.85),inset -4px -4px 8px rgba(169,127,60,.15)'
         }
       })),
 
@@ -1615,7 +2315,73 @@ class Component extends DCLogic {
       setPhone: (e) => this.setState({ phone: e.target.value }),
       setNote: (e) => this.setState({ note: e.target.value }),
       doneLine: 'Thank you' + (s.name.trim() ? ', ' + s.name.trim().split(' ')[0] : '') + '. We will call you on ' + (s.phone.trim() || 'your number') + ' to arrange your free consultation.',
-      reset: () => this.setState({ done: false, step: 0, answers: { room: '', style: '', timing: '' }, name: '', phone: '', note: '' })
+      reset: () => this.setState({ done: false, step: 0, answers: { room: '', style: '', timing: '' }, name: '', phone: '', note: '' }),
+      quoteBtnStyle,
+      quoteBtnStyleHover,
+      quoteBtnStyleMobile,
+      heroStarOn: s.vw >= 768,
+      heroDayOpacity: s.heroImgIndex === 0 ? '1' : '0',
+      heroNightOpacity: s.heroImgIndex === 1 ? '1' : '0',
+      heroTimeLabel: s.heroImgIndex === 0 ? 'Day View' : 'Night View',
+
+      // Moments of Heaven Furniture Mart bindings
+      activeMomentPhotoStyle: {
+        position: 'absolute', inset: 0,
+        backgroundImage: 'url("' + ((MOMENTS[s.momentIndex] || MOMENTS[0]).img) + '")',
+        backgroundSize: 'cover', backgroundPosition: 'center',
+        transition: 'transform .8s cubic-bezier(.16,1,.3,1)'
+      },
+      activeMomentTag: (MOMENTS[s.momentIndex] || MOMENTS[0]).tag,
+      activeMomentTitle: (MOMENTS[s.momentIndex] || MOMENTS[0]).title,
+      activeMomentDesc: (MOMENTS[s.momentIndex] || MOMENTS[0]).desc,
+      momentCountText: String(s.momentIndex + 1) + ' / ' + String(MOMENTS.length),
+      momentThumbnails: MOMENTS.map((m, i) => {
+        const on = i === s.momentIndex;
+        return {
+          img: m.img,
+          title: m.title,
+          shortTitle: m.shortTitle,
+          textColor: on ? '#1F3A38' : '#6B6055',
+          style: {
+            border: on ? '2px solid #A97F3C' : '1px solid rgba(0,0,0,.08)',
+            borderRadius: '16px', padding: '6px', cursor: 'pointer',
+            background: on ? 'linear-gradient(150deg,#FFFFFF,#F4ECE0)' : 'rgba(255,255,255,.6)',
+            boxShadow: on ? '0 8px 18px rgba(169,127,60,.28)' : 'none',
+            transform: on ? 'translateY(-2px)' : 'none',
+            transition: 'all .25s ease'
+          },
+          onClick: () => this.setState({ momentIndex: i })
+        };
+      }),
+      prevMoment: (e) => {
+        if (e && e.stopPropagation) e.stopPropagation();
+        this.setState((s) => {
+          const current = s.momentLb >= 0 ? s.momentLb : s.momentIndex;
+          const prev = (current - 1 + MOMENTS.length) % MOMENTS.length;
+          return {
+            momentIndex: prev,
+            momentLb: s.momentLb >= 0 ? prev : -1
+          };
+        });
+      },
+      nextMoment: (e) => {
+        if (e && e.stopPropagation) e.stopPropagation();
+        this.setState((s) => {
+          const current = s.momentLb >= 0 ? s.momentLb : s.momentIndex;
+          const nxt = (current + 1) % MOMENTS.length;
+          return {
+            momentIndex: nxt,
+            momentLb: s.momentLb >= 0 ? nxt : -1
+          };
+        });
+      },
+      pauseMoment: () => this.setState({ momentHover: true }),
+      resumeMoment: () => this.setState({ momentHover: false }),
+      inspectActiveMoment: () => this.setState({ momentLb: s.momentIndex }),
+      closeMomentLb: () => this.setState({ momentLb: -1 }),
+      momentLbOn: s.momentLb >= 0,
+      lbMomentImg: s.momentLb >= 0 ? MOMENTS[s.momentLb].img : '',
+      lbMomentTitle: s.momentLb >= 0 ? MOMENTS[s.momentLb].title : ''
     };
   }
 }
