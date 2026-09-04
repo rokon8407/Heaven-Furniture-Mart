@@ -225,6 +225,70 @@
   @keyframes clayShimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
   @keyframes clayDrift { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(40px,-30px) scale(1.06); } 66% { transform: translate(-30px,25px) scale(.96); } }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; } }
+
+  /* Moments of Heaven Furniture Mart - Responsive Showcase */
+  .moments-card {
+    position: relative;
+    border-radius: clamp(26px, 4.5vw, 52px);
+    padding: clamp(12px, 1.8vw, 22px);
+    background: linear-gradient(150deg, rgba(255,255,255,.94), rgba(243,235,221,.85));
+    backdrop-filter: blur(20px) saturate(1.5);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow: 22px 24px 50px rgba(160,140,110,.32), -14px -14px 32px rgba(255,255,255,.98), inset 5px 5px 12px rgba(255,255,255,.9), inset -5px -5px 12px rgba(169,127,60,.16);
+    overflow: hidden;
+  }
+  .moments-stage {
+    position: relative;
+    width: 100%;
+    min-height: clamp(330px, 44vw, 560px);
+    aspect-ratio: 16/10;
+    max-height: 640px;
+    border-radius: clamp(20px, 3.8vw, 42px);
+    overflow: hidden;
+    box-shadow: inset 3px 3px 10px rgba(0,0,0,.3);
+    touch-action: pan-y;
+  }
+  .moments-thumb-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(8px, 1.2vw, 14px);
+    margin-top: clamp(12px, 1.8vw, 20px);
+    width: 100%;
+  }
+  .moment-thumb-btn {
+    min-width: 0;
+    user-select: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (max-width: 767px) {
+    .moments-stage {
+      min-height: 310px;
+      aspect-ratio: 4/3;
+    }
+    .moments-thumb-row {
+      display: flex !important;
+      overflow-x: auto !important;
+      overflow-y: hidden !important;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 4px 4px 10px 4px;
+    }
+    .moments-thumb-row::-webkit-scrollbar {
+      display: none;
+    }
+    .moment-thumb-btn {
+      flex: 0 0 clamp(112px, 30vw, 134px) !important;
+      width: clamp(112px, 30vw, 134px) !important;
+      max-width: 140px;
+      scroll-snap-align: center;
+    }
+  }
 </style>
 </helmet>
 
@@ -536,52 +600,60 @@
   </section>
 
   <!-- MOMENTS OF HEAVEN FURNITURE MART SECTION -->
-  <section id="moments" data-screen-label="Moments" style="padding:clamp(36px,5vw,72px) clamp(20px,4vw,48px)">
+  <section id="moments" data-screen-label="Moments" style="padding:clamp(32px,5vw,72px) clamp(16px,4vw,48px)">
     <div style="max-width:1240px;margin:0 auto">
       
       <!-- Section Header -->
-      <div data-reveal="1" style="max-width:760px;margin-bottom:clamp(24px,3vw,38px)">
+      <div data-reveal="1" style="max-width:760px;margin-bottom:clamp(22px,3vw,38px)">
         <div style="font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#A97F3C;font-weight:700;margin-bottom:14px">Heritage &amp; Recognition</div>
-        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,58px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">Moments of Heaven Furniture Mart</h2>
-        <p style="margin:16px 0 0;font-size:clamp(15px,1.5vw,17px);line-height:1.65;color:#5C5245">From representing Chattogram at national furniture fairs to receiving 1st prize industry awards and sponsoring youth creative talent, explore the defining milestones of our journey.</p>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,58px);line-height:1.06;font-weight:600;color:#2B241E;letter-spacing:-.01em">Moments of Heaven Furniture Mart</h2>
+        <p style="margin:16px 0 0;font-size:clamp(14.5px,1.5vw,17px);line-height:1.65;color:#5C5245">From representing Chattogram at national furniture fairs to receiving 1st prize industry awards and sponsoring youth creative talent, explore the defining milestones of our journey.</p>
       </div>
 
       <!-- Main Auto-Sliding Showcase Card -->
-      <div data-reveal="1" onMouseEnter="{{ pauseMoment }}" onMouseLeave="{{ resumeMoment }}" style="position:relative;border-radius:clamp(36px,4.5vw,52px);padding:clamp(14px,1.8vw,22px);background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(243,235,221,.85));backdrop-filter:blur(20px) saturate(1.5);box-shadow:22px 24px 50px rgba(160,140,110,.32),-14px -14px 32px rgba(255,255,255,.98),inset 5px 5px 12px rgba(255,255,255,.9),inset -5px -5px 12px rgba(169,127,60,.16)">
+      <div data-reveal="1" onMouseEnter="{{ pauseMoment }}" onMouseLeave="{{ resumeMoment }}" class="moments-card">
         
-        <div style="position:relative;width:100%;min-height:clamp(360px,44vw,560px);aspect-ratio:16/10;max-height:640px;border-radius:clamp(28px,3.8vw,42px);overflow:hidden;box-shadow:inset 3px 3px 10px rgba(0,0,0,.3)">
+        <div class="moments-stage" onTouchStart="{{ momentTouchStart }}" onTouchEnd="{{ momentTouchEnd }}">
           <!-- Auto-sliding Photo layer with transition -->
           <div style="{{ activeMomentPhotoStyle }}" onClick="{{ inspectActiveMoment }}" style-hover="transform:scale(1.025);cursor:pointer"></div>
           
           <!-- Gradient Vignette -->
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,0) 35%,rgba(15,34,32,.85) 100%);pointer-events:none"></div>
 
+          <!-- Floating Left & Right Navigation Arrows -->
+          <button type="button" onClick="{{ prevMoment }}" aria-label="Previous Moment" style="position:absolute;left:clamp(8px,1.5vw,18px);top:50%;transform:translateY(-50%);z-index:6;width:clamp(36px,3.8vw,44px);height:clamp(36px,3.8vw,44px);border:1px solid rgba(226,199,149,.35);border-radius:9999px;background:rgba(14,32,30,.58);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#E2C795;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.35);transition:all .2s ease" style-hover="background:rgba(20,44,42,.85);transform:translateY(-50%) scale(1.08)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button type="button" onClick="{{ nextMoment }}" aria-label="Next Moment" style="position:absolute;right:clamp(8px,1.5vw,18px);top:50%;transform:translateY(-50%);z-index:6;width:clamp(36px,3.8vw,44px);height:clamp(36px,3.8vw,44px);border:1px solid rgba(226,199,149,.35);border-radius:9999px;background:rgba(14,32,30,.58);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#E2C795;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.35);transition:all .2s ease" style-hover="background:rgba(20,44,42,.85);transform:translateY(-50%) scale(1.08)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+
           <!-- Top Badge: Event Tag & Slide Count -->
-          <div style="position:absolute;top:clamp(16px,2.5vw,26px);left:clamp(16px,2.5vw,26px);right:clamp(16px,2.5vw,26px);display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:5">
-            <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.3);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:#E2C795;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25)">
-              <span style="width:7px;height:7px;border-radius:9999px;background:#34A853;box-shadow:0 0 8px #34A853"></span>
-              {{ activeMomentTag }}
+          <div style="position:absolute;top:clamp(12px,2.2vw,24px);left:clamp(12px,2.2vw,24px);right:clamp(12px,2.2vw,24px);display:flex;align-items:center;justify-content:space-between;gap:8px;z-index:5">
+            <span style="display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:9999px;background:rgba(14,32,30,.52);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(226,199,149,.3);font-size:clamp(10px,1.1vw,11.5px);letter-spacing:.1em;text-transform:uppercase;color:#E2C795;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.25);max-width:calc(100% - 68px);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
+              <span style="width:7px;height:7px;flex-shrink:0;border-radius:9999px;background:#34A853;box-shadow:0 0 8px #34A853"></span>
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ activeMomentTag }}</span>
             </span>
-            <span style="padding:8px 16px;border-radius:9999px;background:rgba(14,32,30,.48);backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.18);font-size:12px;font-weight:700;color:#F6F1E9;box-shadow:0 8px 20px rgba(0,0,0,.25)">
+            <span style="padding:7px 14px;border-radius:9999px;background:rgba(14,32,30,.52);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid rgba(255,255,255,.18);font-size:clamp(11px,1.1vw,12px);font-weight:700;color:#F6F1E9;box-shadow:0 8px 20px rgba(0,0,0,.25);flex-shrink:0">
               {{ momentCountText }}
             </span>
           </div>
 
           <!-- Compact Translucent Left Caption Box -->
-          <div style="position:absolute;bottom:clamp(14px,2.2vw,24px);left:clamp(14px,2.2vw,24px);max-width:clamp(280px,46vw,480px);padding:clamp(10px,1.4vw,14px) clamp(14px,1.8vw,18px);border-radius:clamp(18px,2.2vw,24px);background:rgba(14,32,30,.55);backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(226,199,149,.25);box-shadow:0 12px 30px rgba(0,0,0,.35),inset 2px 2px 4px rgba(255,255,255,.12);z-index:5">
-            <h3 style="margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.1vw,22px);font-weight:600;color:#F6F1E9;line-height:1.2">{{ activeMomentTitle }}</h3>
+          <div style="position:absolute;bottom:clamp(12px,2vw,24px);left:clamp(12px,2vw,24px);right:clamp(12px,2vw,24px);max-width:500px;width:auto;padding:clamp(10px,1.4vw,14px) clamp(14px,1.8vw,18px);border-radius:clamp(16px,2.2vw,24px);background:rgba(14,32,30,.62);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border:1px solid rgba(226,199,149,.25);box-shadow:0 12px 30px rgba(0,0,0,.35),inset 2px 2px 4px rgba(255,255,255,.12);z-index:5">
+            <h3 style="margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2vw,22px);font-weight:600;color:#F6F1E9;line-height:1.2">{{ activeMomentTitle }}</h3>
             <p style="margin:0;font-size:clamp(11.5px,1vw,13px);line-height:1.45;color:rgba(246,241,233,.82)">{{ activeMomentDesc }}</p>
           </div>
         </div>
 
         <!-- 5 Thumbnail Indicators -->
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.2vw,14px);margin-top:clamp(14px,1.8vw,20px)">
+        <div class="moments-thumb-row" id="momentsThumbRow">
           <sc-for list="{{ momentThumbnails }}" as="thumb" hint-placeholder-count="5">
-            <button type="button" onClick="{{ thumb.onClick }}" aria-label="{{ thumb.title }}" style="{{ thumb.style }}" style-hover="transform:translateY(-3px);border-color:rgba(169,127,60,.6)">
-              <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin-bottom:6px">
+            <button type="button" class="moment-thumb-btn {{ thumb.activeClass }}" onClick="{{ thumb.onClick }}" aria-label="{{ thumb.title }}" style="{{ thumb.style }}" style-hover="transform:translateY(-3px);border-color:rgba(169,127,60,.6)">
+              <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin-bottom:6px">
                 <img src="{{ thumb.img }}" alt="{{ thumb.title }}" style="width:100%;height:100%;object-fit:cover;display:block" />
               </div>
-              <div style="font-size:11px;font-weight:700;color:{{ thumb.textColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2">{{ thumb.shortTitle }}</div>
+              <div style="font-size:11px;font-weight:700;color:{{ thumb.textColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2;text-align:center">{{ thumb.shortTitle }}</div>
             </button>
           </sc-for>
         </div>
@@ -1647,6 +1719,19 @@ class Component extends DCLogic {
 
   componentDidUpdate() {
     if (this._queueSweep) this._queueSweep();
+    if (this._lastScrolledMoment !== this.state.momentIndex) {
+      this._lastScrolledMoment = this.state.momentIndex;
+      try {
+        const container = document.getElementById('momentsThumbRow');
+        if (container && container.scrollWidth > container.clientWidth) {
+          const activeBtn = container.querySelector('.moment-thumb-btn.is-active');
+          if (activeBtn) {
+            const targetLeft = activeBtn.offsetLeft - (container.clientWidth - activeBtn.clientWidth) / 2;
+            container.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+          }
+        }
+      } catch (err) {}
+    }
   }
 
   componentWillUnmount() {
@@ -2342,13 +2427,16 @@ class Component extends DCLogic {
           title: m.title,
           shortTitle: m.shortTitle,
           textColor: on ? '#1F3A38' : '#6B6055',
+          activeClass: on ? 'is-active' : '',
           style: {
             border: on ? '2px solid #A97F3C' : '1px solid rgba(0,0,0,.08)',
             borderRadius: '16px', padding: '6px', cursor: 'pointer',
             background: on ? 'linear-gradient(150deg,#FFFFFF,#F4ECE0)' : 'rgba(255,255,255,.6)',
             boxShadow: on ? '0 8px 18px rgba(169,127,60,.28)' : 'none',
             transform: on ? 'translateY(-2px)' : 'none',
-            transition: 'all .25s ease'
+            transition: 'all .25s ease',
+            minWidth: 0,
+            boxSizing: 'border-box'
           },
           onClick: () => this.setState({ momentIndex: i })
         };
@@ -2374,6 +2462,29 @@ class Component extends DCLogic {
             momentLb: s.momentLb >= 0 ? nxt : -1
           };
         });
+      },
+      momentTouchStart: (e) => {
+        if (e && e.touches && e.touches[0]) {
+          this._mTouchStartX = e.touches[0].clientX;
+          this._mTouchStartY = e.touches[0].clientY;
+        }
+      },
+      momentTouchEnd: (e) => {
+        if (this._mTouchStartX == null) return;
+        const touch = e && e.changedTouches && e.changedTouches[0];
+        if (touch) {
+          const dx = touch.clientX - this._mTouchStartX;
+          const dy = touch.clientY - this._mTouchStartY;
+          if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+            if (dx < 0) {
+              this.setState((s) => ({ momentIndex: (s.momentIndex + 1) % MOMENTS.length }));
+            } else {
+              this.setState((s) => ({ momentIndex: (s.momentIndex - 1 + MOMENTS.length) % MOMENTS.length }));
+            }
+          }
+        }
+        this._mTouchStartX = null;
+        this._mTouchStartY = null;
       },
       pauseMoment: () => this.setState({ momentHover: true }),
       resumeMoment: () => this.setState({ momentHover: false }),
